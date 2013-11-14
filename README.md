@@ -71,3 +71,4 @@ Links needed:
   - get playerInfo
   - get to display item/mods
   - post to add mods
+  - get players by game
