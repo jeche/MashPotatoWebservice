@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:annotation-config />
+	    <!-- create db object by calling getDB on mongo bean -->
+<context:property-placeholder/>
+    <bean id="mongo" class="com.mongodb.MongoURI">
+      <constructor-arg value="mongodb://werewolf:werewolf@widmore.mongohq.com:10010/werewolf"/>
+    </bean>
+    
+        <!-- create db object by calling getDB on mongo bean -->
+    <bean id="db" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+      <property name="targetObject"><ref local="mongo"/></property>
+      <property name="targetMethod"><value>connectDB</value></property>
+    </bean>  
+
+	<bean id="playerDAO" class="edu.wm.werewolf.dao.MongoPlayerDAO"></bean>
+	<task:executor id="myExecutor" pool-size="5"/>
+	<task:scheduler id="myScheduler" pool-size="10"/>
+	<bean id="userDAO" class="edu.wm.werewolf.dao.MongoUserDAO"></bean>
+	<bean id="gameService" name="gameService" class="edu.wm.werewolf.service.GameService"></bean>
+	
+	
+<bean id="runMeTask" class="edu.wm.werewolf.HomeController" />
+	<bean id="schedulerTask" 
+  class="org.springframework.scheduling.timer.MethodInvokingTimerTaskFactoryBean">
+	<property name="targetObject" ref="runMeTask" />
+	<property name="targetMethod" value="timeIteration" />
+	</bean>
+	<bean id="timerTask"
+	class="org.springframework.scheduling.timer.ScheduledTimerTask">
+	<property name="timerTask" ref="schedulerTask" />
+	<property name="delay" value="0" />
+	<property name="period" value="5000" />
+</bean>
+<bean class="org.springframework.scheduling.timer.TimerFactoryBean">
+	<property name="scheduledTimerTasks">
+		<list>
+			<ref local="timerTask" />
+		</list>
+	</property>
+</bean>
+	<bean id="killDAO" class="edu.wm.werewolf.dao.MongoKillDAO"></bean>
+	<bean id="userService"
+		class="edu.wm.werewolf.service.UserServiceImpl">
+	</bean>
+	<bean id="voteDAO" class="edu.wm.werewolf.dao.MongoVoteDAO"></bean>
+	<bean id="gameDAO" class="edu.wm.werewolf.dao.MongoGameDAO"></bean>
+</beans>
