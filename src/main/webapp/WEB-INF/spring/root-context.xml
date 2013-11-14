@@ -23,14 +23,14 @@
       <property name="targetMethod"><value>connectDB</value></property>
     </bean>  
 
-	<bean id="playerDAO" class="edu.wm.werewolf.dao.MongoPlayerDAO"></bean>
+	<bean id="playerDAO" class="edu.wm.potato.dao.MongoPlayerDAO"></bean>
 	<task:executor id="myExecutor" pool-size="5"/>
 	<task:scheduler id="myScheduler" pool-size="10"/>
-	<bean id="userDAO" class="edu.wm.werewolf.dao.MongoUserDAO"></bean>
-	<bean id="gameService" name="gameService" class="edu.wm.werewolf.service.GameService"></bean>
+	<bean id="userDAO" class="edu.wm.potato.dao.MongoUserDAO"></bean>
+	<bean id="gameService" name="gameService" class="edu.wm.potato.service.GameService"></bean>
 	
 	
-<bean id="runMeTask" class="edu.wm.werewolf.HomeController" />
+<bean id="runMeTask" class="edu.wm.potato.HomeController" />
 	<bean id="schedulerTask" 
   class="org.springframework.scheduling.timer.MethodInvokingTimerTaskFactoryBean">
 	<property name="targetObject" ref="runMeTask" />
@@ -49,10 +49,10 @@
 		</list>
 	</property>
 </bean>
-	<bean id="killDAO" class="edu.wm.werewolf.dao.MongoKillDAO"></bean>
+	<bean id="killDAO" class="edu.wm.potato.dao.MongoKillDAO"></bean>
 	<bean id="userService"
-		class="edu.wm.werewolf.service.UserServiceImpl">
+		class="edu.wm.potato.service.UserServiceImpl">
 	</bean>
-	<bean id="voteDAO" class="edu.wm.werewolf.dao.MongoVoteDAO"></bean>
-	<bean id="gameDAO" class="edu.wm.werewolf.dao.MongoGameDAO"></bean>
+	<bean id="voteDAO" class="edu.wm.potato.dao.MongoVoteDAO"></bean>
+	<bean id="gameDAO" class="edu.wm.potato.dao.MongoGameDAO"></bean>
 </beans>
