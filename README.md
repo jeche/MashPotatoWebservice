@@ -19,6 +19,7 @@ Users
   - Same as werewolf, remove images.
   - count of rounds survived over all games
   - count of games won
+  - achievements
 
 Game
   - Player lists (remove player from this list when they are out)
