@@ -64,10 +64,10 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		document.put("_id", updated.getId());
 		document.put("loc", new double[]{updated.getLng(), updated.getLat()});
 		document.put("userId", updated.getUserId());
-		document.put("votedAgainst", updated.getVotedAgainst());
+/*		document.put("votedAgainst", updated.getVotedAgainst());
 		document.put("isWerewolf", updated.isWerewolf());
 		document.put("isDead", updated.isDead());
-		document.put("hasUpdated", updated.isHasUpdated());
+		document.put("hasUpdated", updated.isHasUpdated());*/
 		table.save(document);
 		// Used for indexing to allow for geospatial queries.
 		DBObject index2d = BasicDBObjectBuilder.start("loc", "2d").get();
