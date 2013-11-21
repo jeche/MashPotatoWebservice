@@ -12,6 +12,7 @@ public class Player extends BasicPlayer{
 	private String votedAgainst;
 	private int score;
 	private boolean hasUpdated;
+	private Game game;
 	
 	public Player(String id, boolean isDead, double d, double e, String userId, boolean isWerewolf, boolean hasUpdated) {
 		this.id = id;
