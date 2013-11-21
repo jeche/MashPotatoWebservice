@@ -23,6 +23,10 @@ public class Potato {
 		this.gameID = gameID;
 		this.location = location;
 	}
+	
+	public Potato () {
+	}
+	
 	public int getMultiplier() {
 		return multiplier;
 	}
