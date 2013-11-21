@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 import edu.wm.potato.dao.IUserDAO;
 import edu.wm.potato.dao.authUser;
-import edu.wm.potato.model.WerewolfUser;
+import edu.wm.potato.model.PotatoUser;
 
 @Service("userService")
 public class UserServiceImpl implements UserDetailsService, IUserService {
@@ -28,13 +28,13 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 		
-		WerewolfUser user = userDAO.getUserByUsername(username);
+		PotatoUser user = userDAO.getUserByUsername(username);
 		BCryptPasswordEncoder encoded = new BCryptPasswordEncoder();
 		// TODO: Remove admin functionality
 //		logger.info(user.toString());
 		if(user == null && username.equals("admin")) {
 			// Ignore simply used for setup
-			userDAO.createUser(new WerewolfUser("admin", "admin", "admin", "admin", encoded.encode("admin"), "admin"));
+			userDAO.createUser(new PotatoUser("admin", "admin", "admin", "admin", encoded.encode("admin"), "admin"));
 			user.setAdmin(true);
 			userDAO.update(user);
 			user = userDAO.getUserByUsername(username);

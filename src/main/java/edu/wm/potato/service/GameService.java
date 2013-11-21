@@ -20,7 +20,7 @@ import edu.wm.potato.model.GPSLocation;
 import edu.wm.potato.model.Game;
 import edu.wm.potato.model.Player;
 import edu.wm.potato.model.Vote;
-import edu.wm.potato.model.WerewolfUser;
+import edu.wm.potato.model.PotatoUser;
 
 public class GameService {
 	private static final Logger logger = LoggerFactory.getLogger(GameService.class);
@@ -91,7 +91,7 @@ public class GameService {
 	
 	public void updatePosition(String userName, GPSLocation location) 
 	{
-		WerewolfUser user = userDAO.getUserByUsername(userName);
+		PotatoUser user = userDAO.getUserByUsername(userName);
 		Player player = playerDAO.getPlayerByID(user.getId());
 		player.setLat(location.getLat());
 		player.setLng(location.getLng());
@@ -114,7 +114,7 @@ public class GameService {
 		voteDAO.clearVotes();
 		game = new Game(gameTime, (new Date()).getTime());
 		isRunning = true;
-		List<WerewolfUser> users = userDAO.getAllUsers();
+		List<PotatoUser> users = userDAO.getAllUsers();
 		if(users.size() - 1 == 0) {
 			isRunning = false;
 			game = null;
@@ -144,7 +144,7 @@ public class GameService {
 		voteDAO.clearVotes();
 		game = new Game(gameTime, (new Date()).getTime());
 		isRunning = true;
-		List<WerewolfUser> users = userDAO.getAllUsers();
+		List<PotatoUser> users = userDAO.getAllUsers();
 		if(users.size() - 1 == 0) {
 			isRunning = false;
 			game = null;
@@ -188,7 +188,7 @@ public class GameService {
 	}
 	
 	public List<Player> scent(String userId){
-		WerewolfUser user = userDAO.getUserByUsername(userId);
+		PotatoUser user = userDAO.getUserByUsername(userId);
 		Player werewolf = playerDAO.getPlayerByID(user.getId());
 		if(!werewolf.isWerewolf() || werewolf.isDead()) {
 			return null;
@@ -199,7 +199,7 @@ public class GameService {
 	public boolean isOver() {
 		if((playerDAO.numWolves() >= playerDAO.numTown() || playerDAO.numWolves() == 0 )&& isRunning) {
 			List<Player> pList = playerDAO.getAllPlayers();
-			WerewolfUser user;
+			PotatoUser user;
 			for(int i = 0; i < pList.size(); i++) {
 				user = userDAO.getUserByUsername(pList.get(i).getUserId());
 				if(user!= null) {

@@ -45,8 +45,8 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		try {
 		while (cursor.hasNext()) {
 			DBObject item = cursor.next();
-			alive = new Player((String)item.get("_id"), (boolean) item.get("isDead"),(double) ((BasicDBList)item.get("loc")).get(1), (double) ((BasicDBList)item.get("loc")).get(0), (String) item.get("userId"),(boolean) item.get("isWerewolf"), (boolean) item.get("hasUpdated"));
-			players.add(alive);
+//			alive = new Player((String)item.get("_id"), (boolean) item.get("isDead"),(double) ((BasicDBList)item.get("loc")).get(1), (double) ((BasicDBList)item.get("loc")).get(0), (String) item.get("userId"),(boolean) item.get("isWerewolf"), (boolean) item.get("hasUpdated"));
+//			players.add(alive);
 		}
 		}
 		finally {

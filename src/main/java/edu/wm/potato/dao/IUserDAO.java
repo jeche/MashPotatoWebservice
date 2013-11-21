@@ -2,13 +2,13 @@ package edu.wm.potato.dao;
 
 import java.util.List;
 
-import edu.wm.potato.model.WerewolfUser;
+import edu.wm.potato.model.PotatoUser;
 
 public interface IUserDAO {
 	
-	void createUser(WerewolfUser user);
-	WerewolfUser getUserByUsername(String username);
-	List<WerewolfUser> getAllUsers();
-	void update(WerewolfUser user);
+	void createUser(PotatoUser user);
+	PotatoUser getUserByUsername(String username);
+	List<PotatoUser> getAllUsers();
+	void update(PotatoUser user);
 	void clearUsers();
 }

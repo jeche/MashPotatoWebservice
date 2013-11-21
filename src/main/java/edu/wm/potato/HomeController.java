@@ -40,7 +40,7 @@ import edu.wm.potato.model.JsonResponse;
 import edu.wm.potato.model.Kill;
 import edu.wm.potato.model.Player;
 import edu.wm.potato.model.Vote;
-import edu.wm.potato.model.WerewolfUser;
+import edu.wm.potato.model.PotatoUser;
 import edu.wm.potato.service.GameService;
 import edu.wm.potato.service.UserServiceImpl;
 import edu.wm.potato.service.VoteListener;
@@ -99,7 +99,7 @@ public class HomeController {
 	@RequestMapping(value = "/players/getinfo", method=RequestMethod.GET)
 	public @ResponseBody Player getInfo(@RequestParam("player") String playername, Principal principal)
 	{
-		WerewolfUser user = userDAO.getUserByUsername(principal.getName());
+		PotatoUser user = userDAO.getUserByUsername(principal.getName());
 		Player requestPlayer = playerDAO.getPlayerByID(user.getId());
 		Player player = playerDAO.getPlayerByID(playername);
 		if(!player.equals(requestPlayer)) {
@@ -138,7 +138,7 @@ public class HomeController {
 		JsonResponse response = new JsonResponse("success");
 		
 		try {
-			WerewolfUser voter = userDAO.getUserByUsername(principal.getName());
+			PotatoUser voter = userDAO.getUserByUsername(principal.getName());
 			if(!gameService.vote(voter.getId(), voted)) {
 				response.setStatus("failure;");
 			}
@@ -152,7 +152,7 @@ public class HomeController {
 	public @ResponseBody JsonResponse killPlayerById(@RequestParam("victim") String victim, Principal principal) throws NoPlayerFoundException
 	{
 		JsonResponse response = new JsonResponse("success");
-		WerewolfUser user = userDAO.getUserByUsername(principal.getName());
+		PotatoUser user = userDAO.getUserByUsername(principal.getName());
 		try {
 			 if(!gameService.kill(user.getId(), victim)) {
 				 response.setStatus("failed");
@@ -167,7 +167,7 @@ public class HomeController {
 	@RequestMapping(value = "/players/scent", method=RequestMethod.GET)
 	public @ResponseBody List<Player> scent(Principal principal) {
 		try {
-		WerewolfUser user = userDAO.getUserByUsername(principal.getName());
+		PotatoUser user = userDAO.getUserByUsername(principal.getName());
 		List<Player> players = gameService.scent(user.getId());
 		if(players == null) {
 			// Person making a the request is not a werewolf.
@@ -209,7 +209,7 @@ public class HomeController {
 	public @ResponseBody JsonResponse setLocation(@RequestParam("lng") double lng, @RequestParam("lat") double lat, Principal principal) {
 		JsonResponse response = new JsonResponse("success");
 		try {
-			WerewolfUser user = userDAO.getUserByUsername(principal.getName());
+			PotatoUser user = userDAO.getUserByUsername(principal.getName());
 			GPSLocation location = new GPSLocation();
 			location.setLat(lat);
 			location.setLng(lng);
@@ -252,7 +252,7 @@ public class HomeController {
 		response.setGameStatus(gameService.getGame().isNight() + " " + gameService.getAllAlive().size());
 		if(principal != null && principal.getName() != null) {
 			System.out.println("MADE IT");
-			WerewolfUser user = userDAO.getUserByUsername(principal.getName());
+			PotatoUser user = userDAO.getUserByUsername(principal.getName());
 			Player player = playerDAO.getPlayerByID(user.getId());
 			response.setCreated(gameService.getGame().getTimer() +"");
 			response.setNightFreq(gameService.getGame().getDayNightFreq() +"");
@@ -303,7 +303,7 @@ public class HomeController {
 		BCryptPasswordEncoder encoded = new BCryptPasswordEncoder();
 		Collection<GrantedAuthorityImpl> auth = new ArrayList<GrantedAuthorityImpl>();
 		auth.add(new GrantedAuthorityImpl("ROLE_USER"));
-		WerewolfUser user = new WerewolfUser(id, firstName, lastName, username, encoded.encode(hashedPassword), imageURL);
+		PotatoUser user = new PotatoUser(id, firstName, lastName, username, encoded.encode(hashedPassword), imageURL);
 		userDAO.createUser(user);
 		} catch (Exception e) {
 			response.setStatus("failure);" + e.getMessage().toString());
@@ -319,8 +319,8 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/highscores", method=RequestMethod.GET)
-	public @ResponseBody List<WerewolfUser> allTimeHighscoreList(){
-		List<WerewolfUser> scoreList =  userDAO.getAllUsers();
+	public @ResponseBody List<PotatoUser> allTimeHighscoreList(){
+		List<PotatoUser> scoreList =  userDAO.getAllUsers();
 		for(int i = 0; i < scoreList.size(); i++) {
 			scoreList.get(i).setAdmin(false);
 			scoreList.get(i).setFirstName("");

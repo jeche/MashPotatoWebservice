@@ -1,7 +1,10 @@
 package edu.wm.potato.model;
 
-public class Player extends BasicPlayer{
+import java.util.ArrayList;
+import java.util.List;
 
+public class Player {
+	
 	// Pojo! Plain old java object
 	private String id;
 	private boolean isOut;
@@ -9,95 +12,147 @@ public class Player extends BasicPlayer{
 	private double lng;
 	private String userId;
 	private boolean hasPotato;
-	private String votedAgainst;
 	private int score;
-	private boolean hasUpdated;
 	private Game game;
+	private List<Item> itemList;
+	private List<Potato> potatoList;
 	
-	public Player(String id, boolean isDead, double d, double e, String userId, boolean isWerewolf, boolean hasUpdated) {
+	public Player(String id, boolean isOut, double lat, double lng,
+			String userId, boolean hasPotato, int score, Game game,
+			List<Item> itemList, List<Potato> potatoList) {
+		super();
 		this.id = id;
-		this.isOut = isDead;
-		this.lat = d;
-		this.lng = e;
+		this.isOut = isOut;
+		this.lat = lat;
+		this.lng = lng;
 		this.userId = userId;
-		this.hasPotato = isWerewolf;
-		this.score = 0;
-		this.hasUpdated = hasUpdated;
+		this.hasPotato = hasPotato;
+		this.score = score;
+		this.game = game;
+		this.itemList = itemList;
+		this.potatoList = potatoList;
 	}
-
-	public boolean isWerewolf() {
-		return hasPotato;
-	}
-
-	public void setWerewolf(boolean isWerewolf) {
-		this.hasPotato = isWerewolf;
-	}
-
+	
+	/**
+	 * @return the id
+	 */
 	public String getId() {
 		return id;
 	}
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(String id) {
 		this.id = id;
 	}
-	public boolean isDead() {
+	/**
+	 * @return the isOut
+	 */
+	public boolean isOut() {
 		return isOut;
 	}
-	public void setDead(boolean isDead) {
-		this.isOut = isDead;
+	/**
+	 * @param isOut the isOut to set
+	 */
+	public void setOut(boolean isOut) {
+		this.isOut = isOut;
 	}
+	/**
+	 * @return the lat
+	 */
 	public double getLat() {
 		return lat;
 	}
+	/**
+	 * @param lat the lat to set
+	 */
 	public void setLat(double lat) {
 		this.lat = lat;
 	}
+	/**
+	 * @return the lng
+	 */
 	public double getLng() {
 		return lng;
 	}
+	/**
+	 * @param lng the lng to set
+	 */
 	public void setLng(double lng) {
 		this.lng = lng;
 	}
+	/**
+	 * @return the userId
+	 */
 	public String getUserId() {
 		return userId;
 	}
+	/**
+	 * @param userId the userId to set
+	 */
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
-	public String getVotedAgainst() {
-		return votedAgainst;
+	/**
+	 * @return the hasPotato
+	 */
+	public boolean isHasPotato() {
+		return hasPotato;
 	}
-
-	public void setVotedAgainst(String votedAgainst) {
-		this.votedAgainst = votedAgainst;
+	/**
+	 * @param hasPotato the hasPotato to set
+	 */
+	public void setHasPotato(boolean hasPotato) {
+		this.hasPotato = hasPotato;
 	}
-
-
 	/**
 	 * @return the score
 	 */
 	public int getScore() {
 		return score;
 	}
-
 	/**
 	 * @param score the score to set
 	 */
 	public void setScore(int score) {
 		this.score = score;
 	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * @return the game
 	 */
-	@Override
-	public String toString() {
-		return "Player [id=" + id + ", isDead=" + isOut + ", lat=" + lat
-				+ ", lng=" + lng + ", userId=" + userId + ", isWerewolf="
-				+ hasPotato + ", votedAgainst=" + votedAgainst + ", score="
-				+ score + "]";
+	public Game getGame() {
+		return game;
 	}
-
+	/**
+	 * @param game the game to set
+	 */
+	public void setGame(Game game) {
+		this.game = game;
+	}
+	/**
+	 * @return the itemList
+	 */
+	public List<Item> getItemList() {
+		return itemList;
+	}
+	/**
+	 * @param itemList the itemList to set
+	 */
+	public void setItemList(List<Item> itemList) {
+		this.itemList = itemList;
+	}
+	/**
+	 * @return the potatoList
+	 */
+	public List<Potato> getPotatoList() {
+		return potatoList;
+	}
+	/**
+	 * @param potatoList the potatoList to set
+	 */
+	public void setPotatoList(List<Potato> potatoList) {
+		this.potatoList = potatoList;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -105,21 +160,22 @@ public class Player extends BasicPlayer{
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
+		result = prime * result + (hasPotato ? 1231 : 1237);
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + (isOut ? 1231 : 1237);
-		result = prime * result + (hasPotato ? 1231 : 1237);
+		result = prime * result
+				+ ((itemList == null) ? 0 : itemList.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(lat);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		temp = Double.doubleToLongBits(lng);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result
+				+ ((potatoList == null) ? 0 : potatoList.hashCode());
 		result = prime * result + score;
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-		result = prime * result
-				+ ((votedAgainst == null) ? 0 : votedAgainst.hashCode());
 		return result;
 	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
@@ -132,6 +188,8 @@ public class Player extends BasicPlayer{
 		if (getClass() != obj.getClass())
 			return false;
 		Player other = (Player) obj;
+		if (hasPotato != other.hasPotato)
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -139,11 +197,19 @@ public class Player extends BasicPlayer{
 			return false;
 		if (isOut != other.isOut)
 			return false;
-		if (hasPotato != other.hasPotato)
+		if (itemList == null) {
+			if (other.itemList != null)
+				return false;
+		} else if (!itemList.equals(other.itemList))
 			return false;
 		if (Double.doubleToLongBits(lat) != Double.doubleToLongBits(other.lat))
 			return false;
 		if (Double.doubleToLongBits(lng) != Double.doubleToLongBits(other.lng))
+			return false;
+		if (potatoList == null) {
+			if (other.potatoList != null)
+				return false;
+		} else if (!potatoList.equals(other.potatoList))
 			return false;
 		if (score != other.score)
 			return false;
@@ -152,26 +218,18 @@ public class Player extends BasicPlayer{
 				return false;
 		} else if (!userId.equals(other.userId))
 			return false;
-		if (votedAgainst == null) {
-			if (other.votedAgainst != null)
-				return false;
-		} else if (!votedAgainst.equals(other.votedAgainst))
-			return false;
 		return true;
 	}
-
-	/**
-	 * @return the hasUpdated
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
 	 */
-	public boolean isHasUpdated() {
-		return hasUpdated;
+	@Override
+	public String toString() {
+		return "Player [id=" + id + ", isOut=" + isOut + ", lat=" + lat
+				+ ", lng=" + lng + ", userId=" + userId + ", hasPotato="
+				+ hasPotato + ", score=" + score + ", game=" + game
+				+ ", itemList=" + itemList + ", potatoList=" + potatoList + "]";
 	}
-
-	/**
-	 * @param hasUpdated the hasUpdated to set
-	 */
-	public void setHasUpdated(boolean hasUpdated) {
-		this.hasUpdated = hasUpdated;
-	}
+	
 	
 }

@@ -3,7 +3,7 @@ package edu.wm.potato.dao;
 import java.util.List;
 
 import edu.wm.potato.model.Vote;
-import edu.wm.potato.model.WerewolfUser;
+import edu.wm.potato.model.PotatoUser;
 
 public interface IVoteDAO {
 
