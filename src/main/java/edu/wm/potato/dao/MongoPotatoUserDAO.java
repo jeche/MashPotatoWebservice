@@ -19,10 +19,10 @@ import edu.wm.potato.exceptions.NoPlayerFoundException;
 import edu.wm.potato.model.Player;
 import edu.wm.potato.model.PotatoUser;
 
-public class MongoUserDAO implements IUserDAO {
+public class MongoPotatoUserDAO implements IPotatoUserDAO {
 //	@Autowired private MongoClient mongo;
 	@Autowired DB db;
-	@Override
+/*	@Override
 	public void createUser(PotatoUser user) {
 		// TODO Auto-generated method stub
 //		//		db = mongo.getDB("werewolf");
@@ -110,6 +110,36 @@ public class MongoUserDAO implements IUserDAO {
 		// TODO Auto-generated method stub
 		DBCollection table = db.getCollection("User");
 		table.drop();
+	}*/
+
+	@Override
+	public void createUser(PotatoUser user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public PotatoUser getUserByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PotatoUser> getAllUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(PotatoUser user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clearUsers() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

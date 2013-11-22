@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.wm.potato.dao.IPlayerDAO;
-import edu.wm.potato.dao.IUserDAO;
+import edu.wm.potato.dao.IPotatoUserDAO;
 import edu.wm.potato.dao.IVoteDAO;
 import edu.wm.potato.exceptions.NoPlayerFoundException;
 import edu.wm.potato.exceptions.PlayerAlreadyExistsException;
@@ -52,7 +52,7 @@ import edu.wm.potato.service.VoteListener;
  */
 @Controller
 public class HomeController {
-	@Autowired private IUserDAO userDAO;
+	@Autowired private IPotatoUserDAO userDAO;
 	@Autowired private IPlayerDAO playerDAO;
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	@Autowired IVoteDAO voteDAO;

@@ -22,13 +22,15 @@ import com.mongodb.MongoURI;
 
 import edu.wm.potato.HomeController;
 import edu.wm.potato.exceptions.NoPlayerFoundException;
+import edu.wm.potato.exceptions.PlayerAlreadyExistsException;
+import edu.wm.potato.model.Game;
 import edu.wm.potato.model.Player;
 
 public class MongoPlayerDAO implements IPlayerDAO {
 //	@Autowired private MongoURI mongo;
 	private static final Logger logger = LoggerFactory.getLogger(MongoPlayerDAO.class);
 	@Autowired DB db;
-	
+	/*
 	public MongoPlayerDAO(){
 		// TODO Auto-generated constructor stub
 	}
@@ -64,10 +66,10 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		document.put("_id", updated.getId());
 		document.put("loc", new double[]{updated.getLng(), updated.getLat()});
 		document.put("userId", updated.getUserId());
-/*		document.put("votedAgainst", updated.getVotedAgainst());
+		document.put("votedAgainst", updated.getVotedAgainst());
 		document.put("isWerewolf", updated.isWerewolf());
 		document.put("isDead", updated.isDead());
-		document.put("hasUpdated", updated.isHasUpdated());*/
+		document.put("hasUpdated", updated.isHasUpdated());
 		table.save(document);
 		// Used for indexing to allow for geospatial queries.
 		DBObject index2d = BasicDBObjectBuilder.start("loc", "2d").get();
@@ -200,5 +202,31 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		}
 		return players.size();
 	}
-
+*/
+	@Override
+	public void createPlayer(Player player) throws PlayerAlreadyExistsException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public List<Player> getPlayersByGame(Game game) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void update(Player updated) throws NoPlayerFoundException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Player getPlayerByID(String id, Game game)
+			throws NoPlayerFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void remove(Player player) throws NoPlayerFoundException {
+		// TODO Auto-generated method stub
+		
+	}
 }

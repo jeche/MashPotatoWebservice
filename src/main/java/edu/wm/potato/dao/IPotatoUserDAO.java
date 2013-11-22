@@ -4,7 +4,7 @@ import java.util.List;
 
 import edu.wm.potato.model.PotatoUser;
 
-public interface IUserDAO {
+public interface IPotatoUserDAO {
 	
 	void createUser(PotatoUser user);
 	PotatoUser getUserByUsername(String username);

@@ -14,7 +14,7 @@
 	    <!-- create db object by calling getDB on mongo bean -->
 <context:property-placeholder/>
     <bean id="mongo" class="com.mongodb.MongoURI">
-      <constructor-arg value="mongodb://werewolf:werewolf@widmore.mongohq.com:10010/werewolf"/>
+      <constructor-arg value="mongodb://potato:potato@widmore.mongohq.com:10010/werewolf"/>
     </bean>
     
         <!-- create db object by calling getDB on mongo bean -->
@@ -26,7 +26,7 @@
 	<bean id="playerDAO" class="edu.wm.potato.dao.MongoPlayerDAO"></bean>
 	<task:executor id="myExecutor" pool-size="5"/>
 	<task:scheduler id="myScheduler" pool-size="10"/>
-	<bean id="userDAO" class="edu.wm.potato.dao.MongoUserDAO"></bean>
+	<bean id="userDAO" class="edu.wm.potato.dao.MongoPotatoUserDAO"></bean>
 	<bean id="gameService" name="gameService" class="edu.wm.potato.service.GameService"></bean>
 	
 	

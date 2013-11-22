@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class authUser extends User implements UserDetails {
-	@Autowired IUserDAO userDAO;
+	@Autowired IPotatoUserDAO userDAO;
 	public authUser(String username, String password, boolean enabled,
 			boolean accountNonExpired, boolean credentialsNonExpired,
 			boolean accountNonLocked,

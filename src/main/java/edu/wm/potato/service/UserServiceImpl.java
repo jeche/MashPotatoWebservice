@@ -16,13 +16,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import edu.wm.potato.dao.IUserDAO;
+import edu.wm.potato.dao.IPotatoUserDAO;
 import edu.wm.potato.dao.authUser;
 import edu.wm.potato.model.PotatoUser;
 
 @Service("userService")
 public class UserServiceImpl implements UserDetailsService, IUserService {
-	@Autowired IUserDAO userDAO;
+	@Autowired IPotatoUserDAO userDAO;
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	@Override
 	public UserDetails loadUserByUsername(String username)

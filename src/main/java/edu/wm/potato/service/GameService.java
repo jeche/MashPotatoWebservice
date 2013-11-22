@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import edu.wm.potato.dao.IGameDAO;
 import edu.wm.potato.dao.IKillDAO;
 import edu.wm.potato.dao.IPlayerDAO;
-import edu.wm.potato.dao.IUserDAO;
+import edu.wm.potato.dao.IPotatoUserDAO;
 import edu.wm.potato.dao.IVoteDAO;
 import edu.wm.potato.exceptions.PlayerAlreadyExistsException;
 import edu.wm.potato.model.GPSLocation;
@@ -25,7 +25,7 @@ import edu.wm.potato.model.PotatoUser;
 public class GameService {
 	private static final Logger logger = LoggerFactory.getLogger(GameService.class);
 	@Autowired private IPlayerDAO playerDAO;
-	@Autowired private IUserDAO userDAO;
+	@Autowired private IPotatoUserDAO userDAO;
 	@Autowired private IKillDAO killDAO;
 	@Autowired private IGameDAO gameDAO;
 	@Autowired private IVoteDAO voteDAO;
