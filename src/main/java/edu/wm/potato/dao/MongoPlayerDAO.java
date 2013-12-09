@@ -19,8 +19,6 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoURI;
-
-import edu.wm.potato.HomeController;
 import edu.wm.potato.exceptions.NoPlayerFoundException;
 import edu.wm.potato.exceptions.PlayerAlreadyExistsException;
 import edu.wm.potato.model.Game;

@@ -23,7 +23,7 @@ import de.flapdoodle.embedmongo.MongodProcess;
 import de.flapdoodle.embedmongo.config.MongodConfig;
 import de.flapdoodle.embedmongo.distribution.Version;
 import de.flapdoodle.embedmongo.runtime.Network;
-//import edu.wm.werewolf.dao.MongoPlayerDAO;
+import edu.wm.potato.dao.MongoGameDAO;
 //import edu.wm.werewolf.exceptions.NoPlayerFoundException;
 //import edu.wm.werewolf.exceptions.PlayerAlreadyExistsException;
 //import edu.wm.werewolf.model.Player;
