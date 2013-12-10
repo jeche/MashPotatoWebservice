@@ -3,9 +3,12 @@ package edu.wm.potato.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
+
 public class Player {
 	
 	// Pojo! Plain old java object
+	@Id
 	private String id;
 	private boolean isOut;
 	private double lat;

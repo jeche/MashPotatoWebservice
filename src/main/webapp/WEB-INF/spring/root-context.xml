@@ -26,11 +26,5 @@
 <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
     <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
 </bean>  
-
-	<bean id="playerDAO" class="edu.wm.potato.dao.MongoPlayerDAO"></bean>
-	<task:executor id="myExecutor" pool-size="5"/>
-	<task:scheduler id="myScheduler" pool-size="10"/>
-	<bean id="userDAO" class="edu.wm.potato.dao.MongoPotatoUserDAO"></bean>
-	<bean id="killDAO" class="edu.wm.potato.dao.MongoKillDAO"></bean>
 	<bean id="gameDAO" class="edu.wm.potato.dao.MongoGameDAO"></bean>
 </beans>

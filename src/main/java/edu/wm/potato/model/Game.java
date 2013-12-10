@@ -4,32 +4,41 @@ package edu.wm.potato.model;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class Game{
-	public Game(long dayNightFreq, long creationDate, int roundCount,
-			int state, GPSLocation originalLocation, int potatoCount,
-			List<Player> players, Map<Integer, Player> outOrder) {
+
+	public Game(String id, long dayNightFreq, long creationDate,
+			long maxRoundTime, int roundCount, int state,
+			GPSLocation originalLocation, int potatoCount,
+			List<Player> players, List<Potato> potato,
+			Map<Integer, Player> outOrder) {
 		super();
+		this.id = id;
 		this.dayNightFreq = dayNightFreq;
 		this.creationDate = creationDate;
+		this.maxRoundTime = maxRoundTime;
 		this.roundCount = roundCount;
 		this.state = state;
 		this.originalLocation = originalLocation;
 		this.potatoCount = potatoCount;
 		this.players = players;
+		this.potato = potato;
 		this.outOrder = outOrder;
 	}
-	
 	private String id;
 	private long dayNightFreq;
 	private long creationDate;
+	private long maxRoundTime;
 	private int roundCount;
 	private int state;
 	private GPSLocation originalLocation;
 	private int potatoCount;
+	@DBRef
 	private List<Player>players;
+	@DBRef
 	private List<Potato>potato; 
 	private Map<Integer, Player> outOrder;
 	/**
@@ -128,17 +137,7 @@ public class Game{
 	public void setOutOrder(Map<Integer, Player> outOrder) {
 		this.outOrder = outOrder;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Game [dayNightFreq=" + dayNightFreq + ", creationDate="
-				+ creationDate + ", roundCount=" + roundCount + ", state="
-				+ state + ", originalLocation=" + originalLocation
-				+ ", potatoCount=" + potatoCount + ", players=" + players
-				+ ", outOrder=" + outOrder + "]";
-	}
+
 	/**
 	 * @return the id
 	 */
@@ -162,6 +161,30 @@ public class Game{
 	 */
 	public void setPotato(List<Potato> potato) {
 		this.potato = potato;
+	}
+	/**
+	 * @return the maxRoundTime
+	 */
+	public long getMaxRoundTime() {
+		return maxRoundTime;
+	}
+	/**
+	 * @param maxRoundTime the maxRoundTime to set
+	 */
+	public void setMaxRoundTime(long maxRoundTime) {
+		this.maxRoundTime = maxRoundTime;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Game [id=" + id + ", dayNightFreq=" + dayNightFreq
+				+ ", creationDate=" + creationDate + ", maxRoundTime="
+				+ maxRoundTime + ", roundCount=" + roundCount + ", state="
+				+ state + ", originalLocation=" + originalLocation
+				+ ", potatoCount=" + potatoCount + ", players=" + players
+				+ ", potato=" + potato + ", outOrder=" + outOrder + "]";
 	}
 	
 	

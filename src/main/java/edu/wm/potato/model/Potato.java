@@ -2,27 +2,35 @@ package edu.wm.potato.model;
 
 import java.sql.Date;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Potato {
-	
-	private int multiplier;
-	private Date creationDate;
-	private Player holder;
-	private int lifeSpan;
-	private int gameID;
-	private GPSLocation location;
-	
-	
-	
-	public Potato(int multiplier, Date creationDate, Player holder,
-			int lifeSpan, int gameID, GPSLocation location) {
+	public Potato(String pId, int multiplier, Date creationDate, Player holder,
+			int lifeSpan, String gameID, double[] loc) {
 		super();
+		this.pId = pId;
 		this.multiplier = multiplier;
 		this.creationDate = creationDate;
 		this.holder = holder;
 		this.lifeSpan = lifeSpan;
 		this.gameID = gameID;
-		this.location = location;
+		this.loc = loc;
 	}
+
+	@Id
+	private String pId;
+	private int multiplier;
+	private Date creationDate;
+	private Player holder;
+	private int lifeSpan;
+	private String gameID;
+	private double[] loc;
+	
+	
+
 	
 	public Potato () {
 	}
@@ -51,17 +59,38 @@ public class Potato {
 	public void setLifeSpan(int lifeSpan) {
 		this.lifeSpan = lifeSpan;
 	}
-	public int getGameID() {
+	public String getGameID() {
 		return gameID;
 	}
-	public void setGameID(int gameID) {
+	public void setGameID(String gameID) {
 		this.gameID = gameID;
 	}
-	public GPSLocation getLocation() {
-		return location;
+	/**
+	 * @return the pId
+	 */
+	public String getpId() {
+		return pId;
 	}
-	public void setLocation(GPSLocation location) {
-		this.location = location;
+
+	/**
+	 * @param pId the pId to set
+	 */
+	public void setpId(String pId) {
+		this.pId = pId;
+	}
+
+	/**
+	 * @return the loc
+	 */
+	public double[] getLoc() {
+		return loc;
+	}
+
+	/**
+	 * @param loc the loc to set
+	 */
+	public void setLoc(double[] loc) {
+		this.loc = loc;
 	}
 
 

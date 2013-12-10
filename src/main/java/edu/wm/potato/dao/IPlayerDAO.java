@@ -14,5 +14,7 @@ public interface IPlayerDAO {
 	void update(Player updated) throws NoPlayerFoundException;
 	Player getPlayerByID(String id, Game game) throws NoPlayerFoundException;
 	void remove(Player player) throws NoPlayerFoundException;
+	Player getPlayerById(String id);
+	void removePlayerById(String id);
 	
 }
