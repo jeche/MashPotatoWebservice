@@ -23,6 +23,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
+import edu.wm.potato.Constants;
 import edu.wm.potato.model.GPSLocation;
 import edu.wm.potato.model.Game;
 
@@ -58,7 +59,6 @@ public class MongoGameDAO implements IGameDAO {
 
 	@Override
 	public List<Game> getGameByLocation(GPSLocation location, double distance) {
-		// TODO Auto-generated method stub
 		DBCollection table = mongoTemplate.getDb().getCollection(COLLECTION_NAME);
 		BasicDBList v1 = new BasicDBList();
 		v1.add(location.getLng());
@@ -68,15 +68,15 @@ public class MongoGameDAO implements IGameDAO {
 		DBObject index2d = BasicDBObjectBuilder.start("loc", "2d").get();
 		table.ensureIndex(index2d);
 		DBCursor cursor = table.find(query);
-		Game alive;
+		Game alive = null;
 		List<Game> players = new ArrayList<Game>();
 		try {
 		while (cursor.hasNext()) {
-/*			DBObject item = cursor.next();
-			alive = new Player((String)item.get("_id"), (boolean) item.get("isDead"),(double) ((BasicDBList)item.get("loc")).get(1), (double) ((BasicDBList)item.get("loc")).get(0), (String) item.get("userId"),(boolean) item.get("isWerewolf"), (boolean) item.get("hasUpdated"), (String) item.get("img"));
-			if(!alive.isDead()) {
+			DBObject item = cursor.next();
+			//= new Game(id, dayNightFreq, creationDate, maxRoundTime, roundCount, state, originalLocation, potatoCount, players, potato, outOrder)
+			if(alive.getState() == Constants.STATE_READY) {
 				players.add(alive);
-			}*/
+			}
 		}
 		}
 		finally {

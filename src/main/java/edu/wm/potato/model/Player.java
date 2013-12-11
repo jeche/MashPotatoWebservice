@@ -16,7 +16,7 @@ public class Player {
 	private String userId;
 	private boolean hasPotato;
 	private int score;
-	private Game game;
+	private String gameID;
 	private List<Item> itemList;
 	private List<Potato> potatoList;
 	
@@ -31,7 +31,6 @@ public class Player {
 		this.userId = userId;
 		this.hasPotato = hasPotato;
 		this.score = score;
-		this.game = game;
 		this.itemList = itemList;
 		this.potatoList = potatoList;
 	}
@@ -119,18 +118,6 @@ public class Player {
 	 */
 	public void setScore(int score) {
 		this.score = score;
-	}
-	/**
-	 * @return the game
-	 */
-	public Game getGame() {
-		return game;
-	}
-	/**
-	 * @param game the game to set
-	 */
-	public void setGame(Game game) {
-		this.game = game;
 	}
 	/**
 	 * @return the itemList
@@ -230,8 +217,22 @@ public class Player {
 	public String toString() {
 		return "Player [id=" + id + ", isOut=" + isOut + ", lat=" + lat
 				+ ", lng=" + lng + ", userId=" + userId + ", hasPotato="
-				+ hasPotato + ", score=" + score + ", game=" + game
+				+ hasPotato + ", score=" + score + ", game=" + gameID
 				+ ", itemList=" + itemList + ", potatoList=" + potatoList + "]";
+	}
+
+	/**
+	 * @return the gameID
+	 */
+	public String getGameID() {
+		return gameID;
+	}
+
+	/**
+	 * @param gameID the gameID to set
+	 */
+	public void setGameID(String gameID) {
+		this.gameID = gameID;
 	}
 	
 	

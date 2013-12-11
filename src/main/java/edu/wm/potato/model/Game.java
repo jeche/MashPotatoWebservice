@@ -1,35 +1,38 @@
 package edu.wm.potato.model;
 
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import edu.wm.potato.Constants;
 
 @Document
 public class Game{
 
-	public Game(String id, long dayNightFreq, long creationDate,
-			long maxRoundTime, int roundCount, int state,
-			GPSLocation originalLocation, int potatoCount,
-			List<Player> players, List<Potato> potato,
-			Map<Integer, Player> outOrder) {
+	public Game(String id,
+			long maxRoundTime,
+			GPSLocation originalLocation, String owner) {
 		super();
 		this.id = id;
-		this.dayNightFreq = dayNightFreq;
-		this.creationDate = creationDate;
+		this.creationDate = new Date().getTime();
 		this.maxRoundTime = maxRoundTime;
-		this.roundCount = roundCount;
-		this.state = state;
+		this.roundCount = 0;
+		this.state = Constants.STATE_READY;
 		this.originalLocation = originalLocation;
-		this.potatoCount = potatoCount;
-		this.players = players;
-		this.potato = potato;
-		this.outOrder = outOrder;
+		this.potatoCount = 0;
+		this.players = new ArrayList<Player>();
+		this.potato = new ArrayList<Potato>();
+		this.setOwner(owner);
 	}
+	@Id
 	private String id;
-	private long dayNightFreq;
+	private String owner;
 	private long creationDate;
 	private long maxRoundTime;
 	private int roundCount;
@@ -40,19 +43,6 @@ public class Game{
 	private List<Player>players;
 	@DBRef
 	private List<Potato>potato; 
-	private Map<Integer, Player> outOrder;
-	/**
-	 * @return the dayNightFreq
-	 */
-	public long getDayNightFreq() {
-		return dayNightFreq;
-	}
-	/**
-	 * @param dayNightFreq the dayNightFreq to set
-	 */
-	public void setDayNightFreq(long dayNightFreq) {
-		this.dayNightFreq = dayNightFreq;
-	}
 	/**
 	 * @return the creationDate
 	 */
@@ -125,18 +115,7 @@ public class Game{
 	public void setPlayers(List<Player> players) {
 		this.players = players;
 	}
-	/**
-	 * @return the outOrder
-	 */
-	public Map<Integer, Player> getOutOrder() {
-		return outOrder;
-	}
-	/**
-	 * @param outOrder the outOrder to set
-	 */
-	public void setOutOrder(Map<Integer, Player> outOrder) {
-		this.outOrder = outOrder;
-	}
+
 
 	/**
 	 * @return the id
@@ -179,12 +158,18 @@ public class Game{
 	 */
 	@Override
 	public String toString() {
-		return "Game [id=" + id + ", dayNightFreq=" + dayNightFreq
+		return "Game [id=" + id
 				+ ", creationDate=" + creationDate + ", maxRoundTime="
 				+ maxRoundTime + ", roundCount=" + roundCount + ", state="
 				+ state + ", originalLocation=" + originalLocation
 				+ ", potatoCount=" + potatoCount + ", players=" + players
-				+ ", potato=" + potato + ", outOrder=" + outOrder + "]";
+				+ ", potato=" + potato + "]";
+	}
+	public String getOwner() {
+		return owner;
+	}
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
 	
 	

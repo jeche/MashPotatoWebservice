@@ -1,14 +1,12 @@
 package edu.wm.potato.model;
 
+import java.util.List;
+
 public class JsonResponse {
 	
 	String status;
-	String isWerewolf;
-	String kills;
-	String created;
-	String isDead;
-	String nightFreq;
-	String gameStatus;
+	Game game;
+	List<Game> lobby;
 
 	/**
 	 * @return the status
@@ -37,87 +35,24 @@ public class JsonResponse {
 		return "JsonResponse [status=" + status + "]";
 	}
 
-	/**
-	 * @return the isWerewolf
-	 */
-	public String getIsWerewolf() {
-		return isWerewolf;
+	public void setGame(Game game) {
+		this.game = game;
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**
-	 * @param isWerewolf the isWerewolf to set
+	 * @return the lobby
 	 */
-	public void setIsWerewolf(String isWerewolf) {
-		this.isWerewolf = isWerewolf;
+	public List<Game> getLobby() {
+		return lobby;
 	}
 
 	/**
-	 * @return the kills
+	 * @param lobby the lobby to set
 	 */
-	public String getKills() {
-		return kills;
+	public void setLobby(List<Game> lobby) {
+		this.lobby = lobby;
 	}
 
-	/**
-	 * @param kills the kills to set
-	 */
-	public void setKills(String kills) {
-		this.kills = kills;
-	}
-
-	/**
-	 * @return the created
-	 */
-	public String getCreated() {
-		return created;
-	}
-
-	/**
-	 * @param created the created to set
-	 */
-	public void setCreated(String created) {
-		this.created = created;
-	}
-
-	/**
-	 * @return the isDead
-	 */
-	public String getIsDead() {
-		return isDead;
-	}
-
-	/**
-	 * @param isDead the isDead to set
-	 */
-	public void setIsDead(String isDead) {
-		this.isDead = isDead;
-	}
-
-	/**
-	 * @return the nightFreq
-	 */
-	public String getNightFreq() {
-		return nightFreq;
-	}
-
-	/**
-	 * @param nightFreq the nightFreq to set
-	 */
-	public void setNightFreq(String nightFreq) {
-		this.nightFreq = nightFreq;
-	}
-
-	/**
-	 * @return the gameStatus
-	 */
-	public String getGameStatus() {
-		return gameStatus;
-	}
-
-	/**
-	 * @param gameStatus the gameStatus to set
-	 */
-	public void setGameStatus(String gameStatus) {
-		this.gameStatus = gameStatus;
-	}
 }
