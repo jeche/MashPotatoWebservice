@@ -70,8 +70,8 @@ public class MongoPlayerDAO implements IPlayerDAO {
 	public void removePlayerById(String id) {
 		Player result = mongoTemplate.findById(id,  Player.class);
 		this.deletePlayer(result);
-		
 	}
+	
 	@Override
 	public void createPlayer(Player player) throws PlayerAlreadyExistsException {
 		this.addPlayer(player);

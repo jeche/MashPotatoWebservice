@@ -8,11 +8,12 @@ import org.springframework.data.annotation.Id;
 public class Player {
 	
 	// Pojo! Plain old java object
-	@Id
+	
 	private String id;
 	private boolean isOut;
 	private double lat;
 	private double lng;
+	@Id
 	private String userId;
 	private boolean hasPotato;
 	private int score;

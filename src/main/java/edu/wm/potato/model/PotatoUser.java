@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Id;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthoritiesContainerImpl;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
@@ -16,6 +17,7 @@ public class PotatoUser{
 	private String id;
 	private String firstName;
 	private String lastName;
+	@Id
 	private String uId;
 	private String hashedPassword;
 	private int score;

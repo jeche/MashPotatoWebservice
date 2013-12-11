@@ -1,10 +1,14 @@
 package edu.wm.potato;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import edu.wm.potato.dao.IPotatoUserDAO;
 import edu.wm.potato.dao.MongoGameDAO;
 import edu.wm.potato.model.GPSLocation;
 import edu.wm.potato.model.Game;
 import edu.wm.potato.model.JsonResponse;
+import edu.wm.potato.model.PotatoUser;
 import edu.wm.potato.service.PotatoGameService;
 import edu.wm.potato.service.PotatoLobbyService;
 
@@ -27,6 +33,32 @@ public class PotatoController {
 	@Autowired MongoGameDAO gameDAO;
 	@Autowired PotatoGameService gameService;
 	@Autowired PotatoLobbyService lobbyService;
+	@Autowired IPotatoUserDAO userDAO;
+	
+	@RequestMapping(value = "/addUser", method=RequestMethod.POST)
+	public @ResponseBody JsonResponse addUser(@RequestParam("userName")String username, @RequestParam("id")String id,
+			@RequestParam("firstName")String firstName, @RequestParam("lastName")String lastName,
+			@RequestParam("hashedPassword")String hashedPassword, @RequestParam("img") String img, Principal principal)
+	{
+		JsonResponse response = new JsonResponse("success");
+		try {
+		String imageURL = img;
+		if(!img.equals("F") && !img.equals("M")) {
+			img = "M";
+		}
+		BCryptPasswordEncoder encoded = new BCryptPasswordEncoder();
+		Collection<GrantedAuthorityImpl> auth = new ArrayList<GrantedAuthorityImpl>();
+		auth.add(new GrantedAuthorityImpl("ROLE_USER"));
+		System.out.println("WHYYYY1");
+		PotatoUser user = new PotatoUser(id, firstName, lastName, username, encoded.encode(hashedPassword), 0, false, 0, 0, 0, 0);// new PotatoUser(id, firstName, lastName, username, encoded.encode(hashedPassword), img);
+		userDAO.createUser(user);
+		System.out.println("WHYYYY");
+		} catch (Exception e) {
+			System.out.println("WHYYYY343434");
+			response.setStatus("failure);" + e.getMessage().toString());
+		}
+		return response;
+	}
 	
 	@RequestMapping(value = "/removePlayer", method = {RequestMethod.POST})
 	public @ResponseBody JsonResponse removePlayer(@RequestParam("playerId") String playerID, Model model) {

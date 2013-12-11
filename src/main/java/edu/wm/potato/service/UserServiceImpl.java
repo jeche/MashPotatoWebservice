@@ -25,7 +25,11 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 		
+		Integer j = null;
+		j++;
+		logger.info(username);
 		PotatoUser user = userDAO.getUserByUsername(username);
+		logger.info("User is: " + user);
 		BCryptPasswordEncoder encoded = new BCryptPasswordEncoder();
 		// TODO: Remove admin functionality
 //		logger.info(user.toString());
@@ -41,13 +45,15 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
 			System.out.println("Grabbed null user.");
 			return null;
 		}
-
+		
 		Collection<GrantedAuthorityImpl> authorities = new ArrayList<GrantedAuthorityImpl>();
 		authorities.add(new GrantedAuthorityImpl("ROLE_USER"));
 		// remove || later after setting up database
 		if(user.isAdmin() || username.equals("admin")) {
 			authorities.add(new GrantedAuthorityImpl("ROLE_ADMIN"));
 		}
+		System.out.println("User is: " + user);
+		logger.info("User is: " + user);
 		return new authUser(user.getuId(), user.getHashedPassword(), true, true, true, true, authorities);
 	}
 
