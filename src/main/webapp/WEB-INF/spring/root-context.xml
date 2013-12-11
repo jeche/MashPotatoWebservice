@@ -14,6 +14,7 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<context:annotation-config />
+	<context:component-scan base-package="edu.wm.potato" />
 	    <!-- create db object by calling getDB on mongo bean -->
 <context:property-placeholder/>
 <mongo:db-factory id="mongoDbFactory"
@@ -26,14 +27,16 @@
 <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
     <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
 </bean>  
-	<bean id="playerDAO" class="edu.wm.potato.dao.MongoPlayerDAO"></bean>
-	<bean id="userDAO" class="edu.wm.potato.dao.MongoPotatoUserDAO"></bean>
-	<bean id="userService"
-		class="edu.wm.potato.service.UserServiceImpl">
-	</bean>
-	<bean id="gameDAO" class="edu.wm.potato.dao.MongoGameDAO"></bean>
-	<bean id="potatoDAO" class="edu.wm.potato.dao.MongoPotatoDAO"></bean>
-	
-	<bean id="gameService" name="gameService" class="edu.wm.potato.service.PotatoGameService"></bean>
-	<bean id="lobbyService" name="lobbyService" class="edu.wm.potato.service.PotatoLobbyService"></bean>
+
+
+        <bean id="playerDAO" class="edu.wm.potato.dao.MongoPlayerDAO"></bean>
+        <bean id="potatoDAO" class="edu.wm.potato.dao.MongoPotatoDAO"></bean>
+		<bean id="userDAO" class="edu.wm.potato.dao.MongoPotatoUserDAO"></bean>        
+        <bean id="gameService" name="gameService" class="edu.wm.potato.service.PotatoGameService"></bean>
+        <bean id="lobbyService" name="lobbyService" class="edu.wm.potato.service.PotatoLobbyService"></bean>
+        
+        <bean id="userService"
+                class="edu.wm.potato.service.UserServiceImpl">
+        </bean>
+        <bean id="gameDAO" class="edu.wm.potato.dao.MongoGameDAO"></bean>
 </beans>

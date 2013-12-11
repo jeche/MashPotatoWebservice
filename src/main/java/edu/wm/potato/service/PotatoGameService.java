@@ -16,7 +16,7 @@ import edu.wm.potato.model.Player;
 public class PotatoGameService {
 	@Autowired IPlayerDAO playerDAO;
 	@Autowired IGameDAO gameDAO;
-	@Autowired IPotatoDAO potatoDAO;
+//	@Autowired IPotatoDAO potatoDAO;
 
 	public Game remove(String playerID) {
 		Player player = playerDAO.getPlayerById(playerID);

@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 
 import com.mongodb.BasicDBList;
@@ -39,7 +42,18 @@ public class MongoPotatoUserDAO implements IPotatoUserDAO {
 
 	@Override
 	public PotatoUser getUserByUsername(String username) {
-		PotatoUser result = mongoTemplate.findById(username, PotatoUser.class);
+		MongoOperations mongoOperations = mongoTemplate;
+		Criteria criteria = new Criteria();
+		criteria.and("uId").is(username);
+		Query query = new Query();
+		query.addCriteria(criteria);
+		PotatoUser result = mongoTemplate.findOne(query, PotatoUser.class);
+		System.out.println("Result " + result);
+		System.out.println("Why.");
+		
+		System.out.println(mongoOperations.getCollection(COLLECTION_NAME).findOne());
+		System.out.println("All results: " + mongoOperations.findAll(PotatoUser.class, COLLECTION_NAME).toString());
+		System.out.println("fohohoho");
 		return result;
 	}
 

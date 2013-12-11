@@ -7,6 +7,7 @@ http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security-3.1.xsd">
  
   <http use-expressions="true">
+      <intercept-url pattern="/*" access="hasRole('ROLE_USER')" />
   <intercept-url pattern="/player*" access="hasRole('ROLE_USER')" />
   <intercept-url pattern="/admin*" access="hasRole('ROLE_ADMIN')" />
   <intercept-url pattern="/newgame*" access="hasRole('ROLE_ADMIN')" />
@@ -15,7 +16,7 @@ http://www.springframework.org/schema/security/spring-security-3.1.xsd">
   </http>
 
         <beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-        <authentication-manager>
+    <authentication-manager>
     <authentication-provider user-service-ref="userService">
     <password-encoder ref="encoder" />
     </authentication-provider>

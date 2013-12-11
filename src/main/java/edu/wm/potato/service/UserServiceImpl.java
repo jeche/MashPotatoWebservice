@@ -18,15 +18,17 @@ import edu.wm.potato.dao.authUser;
 import edu.wm.potato.model.PotatoUser;
 
 @Service("userService")
-public class UserServiceImpl implements UserDetailsService, IUserService {
+public class UserServiceImpl implements UserDetailsService {
 	@Autowired IPotatoUserDAO userDAO;
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
-		logger.info(username);
-		PotatoUser user = userDAO.getUserByUsername(username);
-		logger.info("User is: " + user);
+		
+		System.out.println("User is " + username);
+		return null;
+		/*PotatoUser user = userDAO.getUserByUsername(username);
+		System.out.println("User is " + username);
 		BCryptPasswordEncoder encoded = new BCryptPasswordEncoder();
 		// TODO: Remove admin functionality
 //		logger.info(user.toString());
@@ -39,7 +41,7 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
 			user = userDAO.getUserByUsername(username);
 		}
 		else if(user == null && !username.equals("admin")) {
-			System.out.println("Grabbed null user.");
+			System.out.println("Grabbed null user." + username);
 			return null;
 		}
 		
@@ -51,7 +53,7 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
 		}
 		System.out.println("User is: " + user);
 		logger.info("User is: " + user);
-		return new authUser(user.getuId(), user.getHashedPassword(), true, true, true, true, authorities);
+		return new authUser(user.getuId(), user.getHashedPassword(), true, true, true, true, authorities);*/
 	}
 
 }
