@@ -33,8 +33,8 @@ public class MongoPotatoUserDAO implements IPotatoUserDAO {
         }      
 //        player.setId(UUID.randomUUID().toString());
         mongoTemplate.insert(user, COLLECTION_NAME);
-        Player player = new Player(user.getuId(), true, 0, 0, user.getuId(), false, 0, null, null, null);
-        playerDAO.createPlayer(player);
+//        Player player = new Player(user.getuId(), true, 0, 0, user.getuId(), false, 0, null, null, null);
+//        playerDAO.createPlayer(player);
 	}
 
 	@Override
