@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.wm.potato.dao.IPotatoUserDAO;
 import edu.wm.potato.dao.MongoGameDAO;
+import edu.wm.potato.dao.MongoPlayerDAO;
 import edu.wm.potato.model.GPSLocation;
 import edu.wm.potato.model.Game;
 import edu.wm.potato.model.JsonResponse;
@@ -31,6 +32,7 @@ import edu.wm.potato.service.PotatoLobbyService;
 public class PotatoController {
 	@Autowired MongoTemplate mongoTemplate;
 	@Autowired MongoGameDAO gameDAO;
+	@Autowired MongoPlayerDAO playerDAO;
 	@Autowired PotatoGameService gameService;
 	@Autowired PotatoLobbyService lobbyService;
 	@Autowired IPotatoUserDAO userDAO;
@@ -38,25 +40,20 @@ public class PotatoController {
 	@RequestMapping(value = "/addUser", method=RequestMethod.POST)
 	public @ResponseBody JsonResponse addUser(@RequestParam("userName")String username, @RequestParam("id")String id,
 			@RequestParam("firstName")String firstName, @RequestParam("lastName")String lastName,
-			@RequestParam("hashedPassword")String hashedPassword, @RequestParam("img") String img, Principal principal)
+			@RequestParam("hashedPassword")String hashedPassword, Principal principal)
 	{
 		JsonResponse response = new JsonResponse("success");
 		try {
-		String imageURL = img;
-		if(!img.equals("F") && !img.equals("M")) {
-			img = "M";
-		}
 		BCryptPasswordEncoder encoded = new BCryptPasswordEncoder();
 		Collection<GrantedAuthorityImpl> auth = new ArrayList<GrantedAuthorityImpl>();
 		auth.add(new GrantedAuthorityImpl("ROLE_USER"));
-		System.out.println("WHYYYY1");
 		PotatoUser user = new PotatoUser(id, firstName, lastName, username, encoded.encode(hashedPassword), 0, false, 0, 0, 0, 0);// new PotatoUser(id, firstName, lastName, username, encoded.encode(hashedPassword), img);
 		userDAO.createUser(user);
-		System.out.println("WHYYYY");
 		} catch (Exception e) {
 			System.out.println("WHYYYY343434");
 			response.setStatus("failure);" + e.getMessage().toString());
 		}
+	
 		return response;
 	}
 	
@@ -70,9 +67,12 @@ public class PotatoController {
 		Collection<GrantedAuthorityImpl> auth = new ArrayList<GrantedAuthorityImpl>();
 		auth.add(new GrantedAuthorityImpl("ROLE_USER"));
 		System.out.println("WHYYYY1");
-		PotatoUser user = new PotatoUser("admin", "admin", "admin", "admin", encoded.encode("admin"), 0, false, 0, 0, 0, 0);// new PotatoUser(id, firstName, lastName, username, encoded.encode(hashedPassword), img);
+		PotatoUser user = new PotatoUser("jlchen", "jlchen", "jlchen", "jlchen", encoded.encode("test1"), 0, false, 0, 0, 0, 0);// new PotatoUser(id, firstName, lastName, username, encoded.encode(hashedPassword), img);
 		userDAO.createUser(user);
-		System.out.println("WHYYYY");
+		Game game = new Game("", 0, null, "");
+		System.out.println(playerDAO.getPlayersByGame(game));
+		game = new Game("a", 0, null, "");
+		System.out.println(playerDAO.getPlayersByGame(game));
 
 		return response;
 	}

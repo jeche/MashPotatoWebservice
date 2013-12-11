@@ -20,8 +20,8 @@ public class PotatoGameService {
 
 	public Game remove(String playerID) {
 		Player player = playerDAO.getPlayerById(playerID);
-		Game game = gameDAO.getGameById(player.getGameID());
-		player.setGameID("");
+		Game game = gameDAO.getGameById(player.getGame());
+		player.setGame("");
 		game.getPlayers().remove(player);
 		gameDAO.updateGame(game);
 		playerDAO.update(player);
@@ -36,7 +36,7 @@ public class PotatoGameService {
 			numPotato = numPotato / 4 + 1;
 			Collections.shuffle(game.getPlayers());
 			for(int i = 0; i < numPotato; i++) {
-				game.getPlayers().get(i).setHasPotato(true);
+//				game.getPlayers().get(i).setHasPotato(true);
 			}
 		}
 		return game;

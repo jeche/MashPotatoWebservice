@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import edu.wm.potato.Constants;
 
-@Document
+@Document(collection="Game")
 public class Game{
 
 	public Game(String id,
@@ -26,8 +26,8 @@ public class Game{
 		this.state = Constants.STATE_READY;
 		this.originalLocation = originalLocation;
 		this.potatoCount = 0;
-		this.players = new ArrayList<Player>();
-		this.potato = new ArrayList<Potato>();
+		this.players = new ArrayList<String>();
+		this.potato = new ArrayList<String>();
 		this.setOwner(owner);
 	}
 	@Id
@@ -39,10 +39,8 @@ public class Game{
 	private int state;
 	private GPSLocation originalLocation;
 	private int potatoCount;
-	@DBRef
-	private List<Player>players;
-	@DBRef
-	private List<Potato>potato; 
+	private List<String>players;
+	private List<String>potato; 
 	/**
 	 * @return the creationDate
 	 */
@@ -106,13 +104,13 @@ public class Game{
 	/**
 	 * @return the players
 	 */
-	public List<Player> getPlayers() {
+	public List<String> getPlayers() {
 		return players;
 	}
 	/**
 	 * @param players the players to set
 	 */
-	public void setPlayers(List<Player> players) {
+	public void setPlayers(List<String> players) {
 		this.players = players;
 	}
 
@@ -132,13 +130,13 @@ public class Game{
 	/**
 	 * @return the potato
 	 */
-	public List<Potato> getPotato() {
+	public List<String> getPotato() {
 		return potato;
 	}
 	/**
 	 * @param potato the potato to set
 	 */
-	public void setPotato(List<Potato> potato) {
+	public void setPotato(List<String> potato) {
 		this.potato = potato;
 	}
 	/**

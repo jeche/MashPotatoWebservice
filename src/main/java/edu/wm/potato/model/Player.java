@@ -4,36 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection="Player")
 public class Player {
 	
 	// Pojo! Plain old java object
 	
+	@Id
 	private String id;
 	private boolean isOut;
 	private double lat;
 	private double lng;
-	@Id
 	private String userId;
-	private boolean hasPotato;
+	private boolean hasString;
 	private int score;
-	private String gameID;
-	private List<Item> itemList;
-	private List<Potato> potatoList;
+	private String game;
+	private List<String> itemList;
+	private List<String> potatoList;
 	
 	public Player(String id, boolean isOut, double lat, double lng,
-			String userId, boolean hasPotato, int score, Game game,
-			List<Item> itemList, List<Potato> potatoList) {
+			String userId, boolean hasString, int score,
+			List<String> itemList, List<String> potatoList) {
 		super();
-		this.id = id;
+		this.id = userId;
 		this.isOut = isOut;
 		this.lat = lat;
 		this.lng = lng;
 		this.userId = userId;
-		this.hasPotato = hasPotato;
+		this.hasString = hasString;
 		this.score = score;
-		this.itemList = itemList;
-		this.potatoList = potatoList;
+		this.game = "";
+		this.itemList = new ArrayList<String>();
+		this.potatoList = new ArrayList<String>();
 	}
 	
 	/**
@@ -97,16 +100,16 @@ public class Player {
 		this.userId = userId;
 	}
 	/**
-	 * @return the hasPotato
+	 * @return the hasString
 	 */
-	public boolean isHasPotato() {
-		return hasPotato;
+	public boolean isHasString() {
+		return hasString;
 	}
 	/**
-	 * @param hasPotato the hasPotato to set
+	 * @param hasString the hasString to set
 	 */
-	public void setHasPotato(boolean hasPotato) {
-		this.hasPotato = hasPotato;
+	public void setHasString(boolean hasString) {
+		this.hasString = hasString;
 	}
 	/**
 	 * @return the score
@@ -123,25 +126,25 @@ public class Player {
 	/**
 	 * @return the itemList
 	 */
-	public List<Item> getItemList() {
+	public List<String> getItemList() {
 		return itemList;
 	}
 	/**
 	 * @param itemList the itemList to set
 	 */
-	public void setItemList(List<Item> itemList) {
+	public void setItemList(List<String> itemList) {
 		this.itemList = itemList;
 	}
 	/**
 	 * @return the potatoList
 	 */
-	public List<Potato> getPotatoList() {
+	public List<String> getPotatoList() {
 		return potatoList;
 	}
 	/**
 	 * @param potatoList the potatoList to set
 	 */
-	public void setPotatoList(List<Potato> potatoList) {
+	public void setPotatoList(List<String> potatoList) {
 		this.potatoList = potatoList;
 	}
 	/* (non-Javadoc)
@@ -151,7 +154,7 @@ public class Player {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + (hasPotato ? 1231 : 1237);
+		result = prime * result + (hasString ? 1231 : 1237);
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + (isOut ? 1231 : 1237);
 		result = prime * result
@@ -179,7 +182,7 @@ public class Player {
 		if (getClass() != obj.getClass())
 			return false;
 		Player other = (Player) obj;
-		if (hasPotato != other.hasPotato)
+		if (hasString != other.hasString)
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -217,23 +220,23 @@ public class Player {
 	@Override
 	public String toString() {
 		return "Player [id=" + id + ", isOut=" + isOut + ", lat=" + lat
-				+ ", lng=" + lng + ", userId=" + userId + ", hasPotato="
-				+ hasPotato + ", score=" + score + ", game=" + gameID
+				+ ", lng=" + lng + ", userId=" + userId + ", hasString="
+				+ hasString + ", score=" + score + ", game=" + game
 				+ ", itemList=" + itemList + ", potatoList=" + potatoList + "]";
 	}
 
 	/**
 	 * @return the gameID
 	 */
-	public String getGameID() {
-		return gameID;
+	public String getGame() {
+		return game;
 	}
 
 	/**
 	 * @param gameID the gameID to set
 	 */
-	public void setGameID(String gameID) {
-		this.gameID = gameID;
+	public void setGame(String game) {
+		this.game = game;
 	}
 	
 	

@@ -26,9 +26,9 @@ public class UserServiceImpl implements UserDetailsService {
 			throws UsernameNotFoundException {
 		
 		System.out.println("User is " + username);
-		return null;
-		/*PotatoUser user = userDAO.getUserByUsername(username);
-		System.out.println("User is " + username);
+		
+		PotatoUser user = userDAO.getUserByUsername(username);
+		System.out.println("User is post db calls " + username);
 		BCryptPasswordEncoder encoded = new BCryptPasswordEncoder();
 		// TODO: Remove admin functionality
 //		logger.info(user.toString());
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserDetailsService {
 		}
 		System.out.println("User is: " + user);
 		logger.info("User is: " + user);
-		return new authUser(user.getuId(), user.getHashedPassword(), true, true, true, true, authorities);*/
+		return new authUser(user.getuId(), user.getHashedPassword(), true, true, true, true, authorities);
 	}
 
 }

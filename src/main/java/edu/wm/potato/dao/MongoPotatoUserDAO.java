@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -25,19 +24,21 @@ import edu.wm.potato.model.Player;
 import edu.wm.potato.model.PotatoUser;
 
 public class MongoPotatoUserDAO implements IPotatoUserDAO {
-	@Autowired MongoTemplate mongoTemplate;
 	@Autowired IPlayerDAO playerDAO;
+	@Autowired MongoTemplate mongoTemplate;
 	public static final String COLLECTION_NAME = "User";
 	
 	@Override
 	public void createUser(PotatoUser user) {
-        if (!mongoTemplate.collectionExists(PotatoUser.class)) {
+		mongoTemplate.getDb().getCollection(COLLECTION_NAME);
+       if (!mongoTemplate.collectionExists(PotatoUser.class)) {
             mongoTemplate.createCollection(PotatoUser.class);
         }      
-//        player.setId(UUID.randomUUID().toString());
         mongoTemplate.insert(user, COLLECTION_NAME);
-//        Player player = new Player(user.getuId(), true, 0, 0, user.getuId(), false, 0, null, null, null);
-//        playerDAO.createPlayer(player);
+        if(!user.getuId().equals("admin")&&playerDAO.getPlayerById(user.getuId()) == null) {
+        	Player player = new Player(user.getuId(), false, 0, 0, user.getuId(), false, 0, null, null);
+        	playerDAO.createPlayer(player);
+        }
 	}
 
 	@Override
@@ -48,12 +49,6 @@ public class MongoPotatoUserDAO implements IPotatoUserDAO {
 		Query query = new Query();
 		query.addCriteria(criteria);
 		PotatoUser result = mongoTemplate.findOne(query, PotatoUser.class);
-		System.out.println("Result " + result);
-		System.out.println("Why.");
-		
-		System.out.println(mongoOperations.getCollection(COLLECTION_NAME).findOne());
-		System.out.println("All results: " + mongoOperations.findAll(PotatoUser.class, COLLECTION_NAME).toString());
-		System.out.println("fohohoho");
 		return result;
 	}
 

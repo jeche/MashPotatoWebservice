@@ -33,12 +33,13 @@ public class MongoPlayerDAO implements IPlayerDAO {
     private MongoTemplate mongoTemplate;
      
     public static final String COLLECTION_NAME = "Player";
-     
+    
     public void addPlayer(Player player) {
+    	mongoTemplate.getDb().getCollection(COLLECTION_NAME);
         if (!mongoTemplate.collectionExists(Player.class)) {
             mongoTemplate.createCollection(Player.class);
         }      
-        player.setId(UUID.randomUUID().toString());
+//        player.setId(UUID.randomUUID().toString());
         mongoTemplate.insert(player, COLLECTION_NAME);
     }
     
@@ -76,14 +77,17 @@ public class MongoPlayerDAO implements IPlayerDAO {
 	public void createPlayer(Player player) throws PlayerAlreadyExistsException {
 		this.addPlayer(player);
 	}
+	
 	@Override
 	public List<Player> getPlayersByGame(Game game) {
 		List<Player> results = null;
 		Query query = new Query();
 		Criteria criteria = new Criteria();
-        criteria = criteria.and("age").is(game.getId());
+        criteria = criteria.and("game").is(game.getId());
+        System.out.println("GAME ID: " + game.getId());
         query.addCriteria(criteria);
         results = mongoTemplate.find(query, Player.class);
+//        results = mongoTemplate.findAll(Player.class);
 		return results;
 	}
 	@Override

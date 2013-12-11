@@ -14,10 +14,10 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Document(collection="User")
-public class PotatoUser{
+public class PotatoUser {
 
 	@Id
-	private String s_id;
+	private String id;
 	private String firstName;
 	private String lastName;
 	private String uId;
@@ -33,7 +33,7 @@ public class PotatoUser{
 			String hashedPassword, int score, boolean isAdmin, int wins,
 			int aliveRounds, int totalRounds, int totalGames) {
 		super();
-		this.s_id = id;
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.uId = uId;
@@ -50,14 +50,14 @@ public class PotatoUser{
 	 * @return the id
 	 */
 	public String getId() {
-		return s_id;
+		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(String id) {
-		this.s_id = id;
+		this.id = id;
 	}
 
 	/**
@@ -205,7 +205,7 @@ public class PotatoUser{
 	 */
 	@Override
 	public String toString() {
-		return "PotatoUser [id=" + s_id + ", firstName=" + firstName
+		return "PotatoUser [id=" + id + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", uId=" + uId
 				+ ", hashedPassword=" + hashedPassword + ", score=" + score
 				+ ", isAdmin=" + isAdmin + ", wins=" + wins + ", aliveRounds="
@@ -225,7 +225,7 @@ public class PotatoUser{
 				+ ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result
 				+ ((hashedPassword == null) ? 0 : hashedPassword.hashCode());
-		result = prime * result + ((s_id == null) ? 0 : s_id.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + (isAdmin ? 1231 : 1237);
 		result = prime * result
 				+ ((lastName == null) ? 0 : lastName.hashCode());
@@ -261,10 +261,10 @@ public class PotatoUser{
 				return false;
 		} else if (!hashedPassword.equals(other.hashedPassword))
 			return false;
-		if (s_id == null) {
-			if (other.s_id != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!s_id.equals(other.s_id))
+		} else if (!id.equals(other.id))
 			return false;
 		if (isAdmin != other.isAdmin)
 			return false;

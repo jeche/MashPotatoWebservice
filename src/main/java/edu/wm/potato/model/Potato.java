@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+@Document(collection="Potato")
 public class Potato {
 	public Potato(String pId, int multiplier, Date creationDate, Player holder,
 			int lifeSpan, String gameID, double[] loc) {
