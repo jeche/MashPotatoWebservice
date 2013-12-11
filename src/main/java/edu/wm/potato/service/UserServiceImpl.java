@@ -24,9 +24,6 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
-		
-		Integer j = null;
-		j++;
 		logger.info(username);
 		PotatoUser user = userDAO.getUserByUsername(username);
 		logger.info("User is: " + user);

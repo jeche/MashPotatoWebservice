@@ -60,6 +60,25 @@ public class PotatoController {
 		return response;
 	}
 	
+	
+	@RequestMapping(value = "/", method=RequestMethod.GET)
+	public @ResponseBody JsonResponse fixer( Principal principal, Model model)
+	{
+		JsonResponse response = new JsonResponse("success");
+
+		BCryptPasswordEncoder encoded = new BCryptPasswordEncoder();
+		Collection<GrantedAuthorityImpl> auth = new ArrayList<GrantedAuthorityImpl>();
+		auth.add(new GrantedAuthorityImpl("ROLE_USER"));
+		System.out.println("WHYYYY1");
+		PotatoUser user = new PotatoUser("admin", "admin", "admin", "admin", encoded.encode("admin"), 0, false, 0, 0, 0, 0);// new PotatoUser(id, firstName, lastName, username, encoded.encode(hashedPassword), img);
+		userDAO.createUser(user);
+		System.out.println("WHYYYY");
+
+		return response;
+	}
+	
+	
+	
 	@RequestMapping(value = "/removePlayer", method = {RequestMethod.POST})
 	public @ResponseBody JsonResponse removePlayer(@RequestParam("playerId") String playerID, Model model) {
 		// sets gameID to invalid value, checks gameID status, if ready to end, ends Game, updates Game as appropriate
