@@ -54,7 +54,9 @@ public class MongoGameDAO implements IGameDAO {
 
 	@Override
 	public Game getGameById(String id) {
-        return mongoTemplate.findById(id, Game.class);
+		List<Game>games =  mongoTemplate.findAll(Game.class, COLLECTION_NAME);
+		System.out.println("LIST OF GAMES: " + games);
+        return games.get(0);
 	}
 
 	@Override

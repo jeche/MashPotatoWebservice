@@ -14,7 +14,22 @@ import edu.wm.potato.Constants;
 
 @Document(collection="Game")
 public class Game{
-
+	public Game() {};
+	public Game(String id, String owner, long creationDate, long maxRoundTime,
+			int roundCount, int state, GPSLocation originalLocation,
+			int potatoCount, List<Player> players, List<Potato> potato) {
+		super();
+		this.id = id;
+		this.owner = owner;
+		this.creationDate = creationDate;
+		this.maxRoundTime = maxRoundTime;
+		this.roundCount = roundCount;
+		this.state = state;
+		this.originalLocation = originalLocation;
+		this.potatoCount = potatoCount;
+		this.players = players;
+		this.potato = potato;
+	}
 	public Game(String id,
 			long maxRoundTime,
 			GPSLocation originalLocation, String owner) {
@@ -26,8 +41,8 @@ public class Game{
 		this.state = Constants.STATE_READY;
 		this.originalLocation = originalLocation;
 		this.potatoCount = 0;
-		this.players = new ArrayList<String>();
-		this.potato = new ArrayList<String>();
+		this.players = new ArrayList<Player>();
+		this.potato = new ArrayList<Potato>();
 		this.setOwner(owner);
 	}
 	@Id
@@ -39,8 +54,10 @@ public class Game{
 	private int state;
 	private GPSLocation originalLocation;
 	private int potatoCount;
-	private List<String>players;
-	private List<String>potato; 
+	@DBRef
+	private List<Player>players;
+	@DBRef
+	private List<Potato>potato; 
 	/**
 	 * @return the creationDate
 	 */
@@ -104,13 +121,13 @@ public class Game{
 	/**
 	 * @return the players
 	 */
-	public List<String> getPlayers() {
+	public List<Player> getPlayers() {
 		return players;
 	}
 	/**
 	 * @param players the players to set
 	 */
-	public void setPlayers(List<String> players) {
+	public void setPlayers(List<Player> players) {
 		this.players = players;
 	}
 
@@ -130,13 +147,13 @@ public class Game{
 	/**
 	 * @return the potato
 	 */
-	public List<String> getPotato() {
+	public List<Potato> getPotato() {
 		return potato;
 	}
 	/**
 	 * @param potato the potato to set
 	 */
-	public void setPotato(List<String> potato) {
+	public void setPotato(List<Potato> potato) {
 		this.potato = potato;
 	}
 	/**

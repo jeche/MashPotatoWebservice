@@ -66,13 +66,19 @@ public class PotatoController {
 		BCryptPasswordEncoder encoded = new BCryptPasswordEncoder();
 		Collection<GrantedAuthorityImpl> auth = new ArrayList<GrantedAuthorityImpl>();
 		auth.add(new GrantedAuthorityImpl("ROLE_USER"));
-		System.out.println("WHYYYY1");
+		
 		PotatoUser user = new PotatoUser("jlchen", "jlchen", "jlchen", "jlchen", encoded.encode("test1"), 0, false, 0, 0, 0, 0);// new PotatoUser(id, firstName, lastName, username, encoded.encode(hashedPassword), img);
 		userDAO.createUser(user);
-		Game game = new Game("", 0, null, "");
+		Game game = new Game("a", 0, null, "");
+		game.getPlayers().add(playerDAO.getPlayerById("jlchen"));
+		System.out.println("game post add: " + game);
+		gameDAO.addGame(game);
+//		System.out.println("game post db: " + game);
+		System.out.println("WHYYYY1");
+		game = lobbyService.joinGame(game.getId(), "jlchen");
 		System.out.println(playerDAO.getPlayersByGame(game));
-		game = new Game("a", 0, null, "");
-		System.out.println(playerDAO.getPlayersByGame(game));
+		
+		System.out.println("Game: " + game);
 
 		return response;
 	}
