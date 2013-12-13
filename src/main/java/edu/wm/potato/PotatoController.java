@@ -79,7 +79,7 @@ public class PotatoController {
 		System.out.println(playerDAO.getPlayersByGame(game));
 		
 		System.out.println("Game: " + game);
-
+		response.setGame(game);
 		return response;
 	}
 	

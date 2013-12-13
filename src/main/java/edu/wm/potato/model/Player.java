@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="Player")
@@ -21,11 +22,12 @@ public class Player {
 	private int score;
 	private String game;
 	private List<String> itemList;
-	private List<String> potatoList;
+	@DBRef
+	private List<Potato> potatoList;
 	
 	public Player(String id, boolean isOut, double lat, double lng,
 			String userId, boolean hasString, int score,
-			List<String> itemList, List<String> potatoList) {
+			List<String> itemList, List<Potato> potatoList) {
 		super();
 		this.id = userId;
 		this.isOut = isOut;
@@ -36,7 +38,7 @@ public class Player {
 		this.score = score;
 		this.game = "";
 		this.itemList = new ArrayList<String>();
-		this.potatoList = new ArrayList<String>();
+		this.potatoList = new ArrayList<Potato>();
 	}
 	
 	/**
@@ -138,13 +140,13 @@ public class Player {
 	/**
 	 * @return the potatoList
 	 */
-	public List<String> getPotatoList() {
+	public List<Potato> getPotatoList() {
 		return potatoList;
 	}
 	/**
 	 * @param potatoList the potatoList to set
 	 */
-	public void setPotatoList(List<String> potatoList) {
+	public void setPotatoList(List<Potato> potatoList) {
 		this.potatoList = potatoList;
 	}
 	/* (non-Javadoc)
