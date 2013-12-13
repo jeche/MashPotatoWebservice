@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -16,7 +17,7 @@ import edu.wm.potato.Constants;
 public class Game{
 	public Game() {};
 	public Game(String id, String owner, long creationDate, long maxRoundTime,
-			int roundCount, int state, GPSLocation originalLocation,
+			int roundCount, int state, double [] originalLocation,
 			int potatoCount, List<Player> players, List<Potato> potato) {
 		super();
 		this.id = id;
@@ -32,7 +33,7 @@ public class Game{
 	}
 	public Game(String id,
 			long maxRoundTime,
-			GPSLocation originalLocation, String owner) {
+			double[] originalLocation, String owner) {
 		super();
 		this.id = id;
 		this.creationDate = new Date().getTime();
@@ -52,7 +53,8 @@ public class Game{
 	private long maxRoundTime;
 	private int roundCount;
 	private int state;
-	private GPSLocation originalLocation;
+	@GeoSpatialIndexed
+	private double [] originalLocation;
 	private int potatoCount;
 	@DBRef
 	private List<Player>players;
@@ -97,13 +99,13 @@ public class Game{
 	/**
 	 * @return the originalLocation
 	 */
-	public GPSLocation getOriginalLocation() {
+	public double[] getOriginalLocation() {
 		return originalLocation;
 	}
 	/**
 	 * @param originalLocation the originalLocation to set
 	 */
-	public void setOriginalLocation(GPSLocation originalLocation) {
+	public void setOriginalLocation(double[] originalLocation) {
 		this.originalLocation = originalLocation;
 	}
 	/**

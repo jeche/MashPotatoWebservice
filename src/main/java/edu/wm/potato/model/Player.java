@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,6 +16,8 @@ public class Player {
 	@Id
 	private String id;
 	private boolean isOut;
+	@GeoSpatialIndexed
+	private double[] loc;
 	private double lat;
 	private double lng;
 	private String userId;

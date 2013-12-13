@@ -73,8 +73,6 @@ public class PotatoController {
 		game.getPlayers().add(playerDAO.getPlayerById("jlchen"));
 		System.out.println("game post add: " + game);
 		gameDAO.addGame(game);
-//		System.out.println("game post db: " + game);
-		System.out.println("WHYYYY1");
 		game = lobbyService.joinGame(game.getId(), "jlchen");
 		System.out.println(playerDAO.getPlayersByGame(game));
 		

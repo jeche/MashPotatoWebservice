@@ -44,7 +44,10 @@ public class PotatoGameService {
 
 	public Game addGame(long lifeSpan, GPSLocation location, String name) {
 		// TODO Auto-generated method stub
-		Game game = new Game("", lifeSpan, location, name);
+		double[] loc = new double[2];
+		loc[0] = location.getLat();
+		loc[1] = location.getLng();
+		Game game = new Game("", lifeSpan, loc, name);
 		gameDAO.addGame(game);
 		return game;
 		
