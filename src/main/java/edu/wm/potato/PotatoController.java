@@ -80,6 +80,9 @@ public class PotatoController {
 		
 		System.out.println("Game: " + game);
 		response.setGame(game);
+		List<Game>lobby = new ArrayList<Game>();
+		lobby.add(game);
+		response.setLobby(lobby);
 		return response;
 	}
 	
