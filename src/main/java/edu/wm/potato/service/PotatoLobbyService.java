@@ -27,7 +27,6 @@ public class PotatoLobbyService {
 		Player player = playerDAO.getPlayerById(playerID);
 		player.setGame(gameID);
 		playerDAO.update(player);
-		System.out.println(game);
 		game.getPlayers().add(player);
 		gameDAO.updateGame(game);
 		return game;

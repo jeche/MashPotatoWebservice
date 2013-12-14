@@ -58,7 +58,7 @@ public class MongoPlayerDAO implements IPlayerDAO {
     }
      
     public void updatePlayer(Player player) {
-        mongoTemplate.insert(player, COLLECTION_NAME);     
+        mongoTemplate.save(player, COLLECTION_NAME);     
     }
 
 	@Override

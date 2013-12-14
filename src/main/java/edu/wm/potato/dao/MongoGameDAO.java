@@ -1,17 +1,23 @@
 package edu.wm.potato.dao;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.management.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.geo.Circle;
+import org.springframework.data.mongodb.core.geo.Distance;
 import org.springframework.data.mongodb.core.geo.GeoResult;
 import org.springframework.data.mongodb.core.geo.GeoResults;
+import org.springframework.data.mongodb.core.geo.Metric;
+import org.springframework.data.mongodb.core.geo.Metrics;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.NearQuery;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.mongodb.BasicDBList;
@@ -49,7 +55,7 @@ public class MongoGameDAO implements IGameDAO {
     
     @Override
     public void updateGame(Game game) {
-        mongoTemplate.insert(game, COLLECTION_NAME);     
+        mongoTemplate.save(game, COLLECTION_NAME);     
     }
 
 	@Override
@@ -62,7 +68,15 @@ public class MongoGameDAO implements IGameDAO {
 	@Override
 	public List<Game> getGameByLocation(GPSLocation location, double distance) {
 		DBCollection table = mongoTemplate.getDb().getCollection(COLLECTION_NAME);
-		BasicDBList v1 = new BasicDBList();
+		 org.springframework.data.mongodb.core.geo.Point p = new org.springframework.data.mongodb.core.geo.Point(location.getLat(), location.getLng());
+		Query query = Query.query(Criteria.where("originalLocation").withinSphere(new Circle(p , new Distance(distance, Metrics.KILOMETERS).getNormalizedValue())));
+//		    query.with(new Sort(Direction.DESC, "timeStamp"));
+		    Criteria criteria = new Criteria();
+		    criteria.and("type").is("Game");
+		    query.addCriteria(criteria);
+
+		    List<Game> games = mongoTemplate.find(query, Game.class);
+		/*BasicDBList v1 = new BasicDBList();
 		v1.add(location.getLng());
 		v1.add(location.getLat());
 		BasicDBObject query = new BasicDBObject();
@@ -83,8 +97,8 @@ public class MongoGameDAO implements IGameDAO {
 		}
 		finally {
 			cursor.close();
-		}
-		return players;
+		}*/
+		return games;
 		
 	}
 

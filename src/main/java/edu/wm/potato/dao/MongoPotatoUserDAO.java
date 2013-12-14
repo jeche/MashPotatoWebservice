@@ -60,8 +60,7 @@ public class MongoPotatoUserDAO implements IPotatoUserDAO {
 
 	@Override
 	public void update(PotatoUser user) {
-		// TODO Auto-generated method stub
-		
+		mongoTemplate.save(user, COLLECTION_NAME);  
 	}
 
 	@Override

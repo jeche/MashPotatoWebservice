@@ -34,7 +34,7 @@ public class MongoPotatoDAO implements IPotatoDAO{
      
     @Override
     public void updatePotato(Potato Potato) {
-        mongoTemplate.insert(Potato, COLLECTION_NAME);     
+        mongoTemplate.save(Potato, COLLECTION_NAME);     
     }
     
 	@Override
