@@ -69,7 +69,8 @@ public class PotatoController {
 		
 		PotatoUser user = new PotatoUser("jlchen", "jlchen", "jlchen", "jlchen", encoded.encode("test1"), 0, false, 0, 0, 0, 0);// new PotatoUser(id, firstName, lastName, username, encoded.encode(hashedPassword), img);
 		userDAO.createUser(user);
-		Game game = new Game("a", 0, null, "");
+		double[] loc = new double[] {1, 2};
+		Game game = new Game("a", 0, loc, "");
 		game.getPlayers().add(playerDAO.getPlayerById("jlchen"));
 		System.out.println("game post add: " + game);
 		gameDAO.addGame(game);
