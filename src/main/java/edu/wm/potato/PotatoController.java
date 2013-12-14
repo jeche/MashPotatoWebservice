@@ -82,6 +82,7 @@ public class PotatoController {
 		List<Game>lobby = new ArrayList<Game>();
 		lobby.add(game);
 		response.setLobby(lobby);
+		response.setLobby(lobbyService.getGamesNear(5, 5));
 		return response;
 	}
 	
