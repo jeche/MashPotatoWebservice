@@ -68,7 +68,7 @@ public class MongoGameDAO implements IGameDAO {
 	@Override
 	public List<Game> getGameByLocation(GPSLocation location, double distance) {
 		DBCollection table = mongoTemplate.getDb().getCollection(COLLECTION_NAME);
-		 org.springframework.data.mongodb.core.geo.Point p = new org.springframework.data.mongodb.core.geo.Point(location.getLat(), location.getLng());
+		 org.springframework.data.mongodb.core.geo.Point p = new org.springframework.data.mongodb.core.geo.Point(1, 2);
 		Query query = Query.query(Criteria.where("originalLocation").withinSphere(new Circle(p , new Distance(distance, Metrics.KILOMETERS).getNormalizedValue())));
 //		    query.with(new Sort(Direction.DESC, "timeStamp"));
 		    Criteria criteria = new Criteria();
