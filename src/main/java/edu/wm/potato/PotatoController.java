@@ -154,22 +154,29 @@ public class PotatoController {
 	@RequestMapping(value = "/login", method = {RequestMethod.GET})
 	public @ResponseBody JsonResponse loginStats(Principal principal) {
 		JsonResponse response = new JsonResponse(Constants.success);
-		Player player = playerDAO.getPlayerById(principal.getName());
-		List<Game> gamesList= new ArrayList<Game>(); 
-		if(!player.getGame().equals("")) {
-			Game g = gameDAO.getGameById(player.getGame());
-			gamesList.add(g);
-			
-		}else {
-			List<Player> players = new ArrayList<Player>();
-			players.add(player);
-			double [] d = new double[2];
-			d[0] = 0;
-			d[1] = 0;
-			Game g= new Game("", "", new Date().getTime(), 0, 0, 0, d, 0, players, new ArrayList<Potato>());
-			gamesList.add(g);
+		try {
+			Player player = playerDAO.getPlayerById(principal.getName());
+			List<Game> gamesList= new ArrayList<Game>(); 
+			if(!player.getGame().equals("")) {
+				Game g = gameDAO.getGameById(player.getGame());
+				gamesList.add(g);
+				
+			}else {
+				List<Player> players = new ArrayList<Player>();
+				players.add(player);
+				double [] d = new double[2];
+				d[0] = 0;
+				d[1] = 0;
+				Game g= new Game("", "", new Date().getTime(), 0, 0, 0, d, 0, players, new ArrayList<Potato>());
+				gamesList.add(g);
+			}
+			response.setLobby(gamesList);
+		} catch (Exception e) {
+			response.setStatus("fail");
+			e.printStackTrace();
+			// TODO: handle exception
 		}
-		response.setLobby(gamesList);
+
 		return response;
 	}
 	
