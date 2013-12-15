@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import edu.wm.potato.dao.IPotatoDAO;
 import edu.wm.potato.dao.IPotatoUserDAO;
 import edu.wm.potato.dao.MongoGameDAO;
 import edu.wm.potato.dao.MongoPlayerDAO;
@@ -39,6 +40,7 @@ public class PotatoController {
 	@Autowired PotatoGameService gameService;
 	@Autowired PotatoLobbyService lobbyService;
 	@Autowired IPotatoUserDAO userDAO;
+	@Autowired IPotatoDAO potatoDAO;
 	
 	@RequestMapping(value = "/addUser", method=RequestMethod.POST)
 	public @ResponseBody JsonResponse addUser(@RequestParam("userName")String username, @RequestParam("id")String id,
@@ -98,6 +100,8 @@ public class PotatoController {
 		JsonResponse response = new JsonResponse(Constants.success);
 		try {
 			Game game = gameService.remove(playerID);
+			Player player = playerDAO.getPlayerById(playerID);
+			game.getPlayers().add(player);
 			response.setGame(game);
 		} catch (Exception e) {
 			response.setStatus("fail");
@@ -124,9 +128,10 @@ public class PotatoController {
 	}
 	
 	@RequestMapping(value = "/updatePotatoInfo", method = {RequestMethod.POST})
-	public String updatePotatoInfo(Principal principal, Model model) {
+	public String updatePotatoInfo(@RequestParam(Constants.lifeSpan) long lifeSpan, @RequestParam(Constants.potatoID) String id, Principal principal, Model model) {
 		// sends Potato info
 		// returns gameStatus
+		Potato potato = potatoDAO.getPotatoById(id);
 //		gameDAO.addGame(game);
 		return "home";
 	}
@@ -224,7 +229,9 @@ public class PotatoController {
 		JsonResponse response = new JsonResponse(Constants.success);
 		try {
 			Game game = gameDAO.getGameById(gameID);
-			
+			List<Game> gameList= new ArrayList<Game>();
+			gameList.add(game);
+			response.setLobby(gameList);
 			response.setGame(game);
 		} catch (Exception e) {
 			response.setStatus("fail");

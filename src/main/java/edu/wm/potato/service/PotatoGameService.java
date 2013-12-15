@@ -24,6 +24,8 @@ public class PotatoGameService {
 		Game game = gameDAO.getGameById(player.getGame());
 		player.setGame("");
 		game.getPlayers().remove(player);
+		player.setHasString(false);
+		player.setOut(true);
 		if(player.isHasString()) {
 			for(Player p : game.getPlayers()) {
 				p.setScore(p.getScore() + 1 );
