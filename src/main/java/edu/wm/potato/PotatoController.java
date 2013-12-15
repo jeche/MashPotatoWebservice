@@ -24,6 +24,7 @@ import edu.wm.potato.dao.MongoPlayerDAO;
 import edu.wm.potato.model.GPSLocation;
 import edu.wm.potato.model.Game;
 import edu.wm.potato.model.JsonResponse;
+import edu.wm.potato.model.Player;
 import edu.wm.potato.model.PotatoUser;
 import edu.wm.potato.service.PotatoGameService;
 import edu.wm.potato.service.PotatoLobbyService;
@@ -98,7 +99,7 @@ public class PotatoController {
 		return response;
 	}
 	
-	@RequestMapping(value = "/lobby", method = {RequestMethod.GET})
+	@RequestMapping(value = "/lobby", method = {RequestMethod.POST})
 	public @ResponseBody JsonResponse lobby(@RequestParam("lng") double lng, @RequestParam("lat") double lat, Model model) {
 		// sets gameID to invalid value, checks gameID status, if ready to end, ends Game, updates Game as appropriate
 		// returns gameStatus
@@ -146,6 +147,19 @@ public class PotatoController {
 		lobbyService.joinGame(gameID, principal.getName());
 		
 		return "home";
+	}
+	
+	@RequestMapping(value = "/login", method = {RequestMethod.GET})
+	public @ResponseBody JsonResponse loginStats(Principal principal) {
+		JsonResponse response = new JsonResponse(Constants.success);
+		Player player = playerDAO.getPlayerById(principal.getName());
+		List<Game> gamesList= new ArrayList<Game>(); 
+		if(!player.getGame().equals("")) {
+			Game g = gameDAO.getGameById(player.getGame());
+			gamesList.add(g);
+			response.setLobby(gamesList);
+		}
+		return response;
 	}
 	
 	@RequestMapping(value = "/gameStatus/{gameID}", method = {RequestMethod.GET})
