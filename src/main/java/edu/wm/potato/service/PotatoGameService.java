@@ -16,6 +16,7 @@ import edu.wm.potato.model.Player;
 public class PotatoGameService {
 	@Autowired IPlayerDAO playerDAO;
 	@Autowired IGameDAO gameDAO;
+	@Autowired PotatoLobbyService lobbyService;
 //	@Autowired IPotatoDAO potatoDAO;
 
 	public Game remove(String playerID) {
@@ -49,6 +50,7 @@ public class PotatoGameService {
 		loc[1] = location.getLng();
 		System.out.println("Username: " + name + " attempted to create a game.");
 		Game game = new Game("", lifeSpan, loc, name);
+		lobbyService.joinGame(game.getId(), name);
 		gameDAO.addGame(game);
 		return game;
 		

@@ -105,9 +105,16 @@ public class PotatoController {
 	public @ResponseBody JsonResponse lobby(@RequestParam("lng") double lng, @RequestParam("lat") double lat, Model model) {
 		// sets gameID to invalid value, checks gameID status, if ready to end, ends Game, updates Game as appropriate
 		// returns gameStatus
-		List<Game> lobby = lobbyService.getGamesNear(lat, lng);
 		JsonResponse response = new JsonResponse(Constants.success);
-		response.setLobby(lobby);
+		try {
+			List<Game> lobby = lobbyService.getGamesNear(lat, lng);
+			response.setLobby(lobby);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
+		
 		return response;
 	}
 	
@@ -209,9 +216,15 @@ public class PotatoController {
 	@RequestMapping(value = "/gameStatus/{gameID}", method = {RequestMethod.GET})
 	public @ResponseBody JsonResponse gameStatus(@PathVariable("gameID") String gameID, Model model) {
 		// returns Game Object as JSON response
-		Game game = gameDAO.getGameById(gameID);
 		JsonResponse response = new JsonResponse(Constants.success);
-		response.setGame(game);
+		try {
+			Game game = gameDAO.getGameById(gameID);
+			
+			response.setGame(game);
+		} catch (Exception e) {
+			response.setStatus("fail");
+		}
+		
 		return response;
 	}
 	
