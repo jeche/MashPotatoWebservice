@@ -43,6 +43,7 @@ public class PotatoGameService {
 
 	public Game startGame(String gameID, String ownerName) {
 		Game game = gameDAO.getGameById(gameID);
+		System.out.println("Owner is: " + ownerName + "and should be: " + game.getOwner());
 		if(ownerName.equals(game.getOwner()) && game.getPlayers().size() > 2) {
 			game.setState(Constants.STATE_PLAY);
 			int numPotato = game.getPlayers().size();
@@ -59,12 +60,11 @@ public class PotatoGameService {
 			po.add(pot);
 			game.setPotato(po);
 			Player player = game.getPlayers().get(0);
+			System.out.println("Chosen one is: " + player.getId());
 			player.setHasString(true);
 			player.setPotatoList(po);
 			gameDAO.updateGame(game);
-			playerDAO.update(player);
-			
-			
+			playerDAO.update(player);	
 /*			for(int i = 0; i < numPotato; i++) {
 				game.getPlayers().get(i).setHasPotato(true);
 			}*/

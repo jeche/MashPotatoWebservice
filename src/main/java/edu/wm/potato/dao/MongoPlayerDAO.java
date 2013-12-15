@@ -92,7 +92,7 @@ public class MongoPlayerDAO implements IPlayerDAO {
 	}
 	@Override
 	public void update(Player updated) throws NoPlayerFoundException {
-		// TODO Auto-generated method stub
+		this.updatePlayer(updated);
 		
 	}
 	@Override
@@ -103,7 +103,7 @@ public class MongoPlayerDAO implements IPlayerDAO {
 	}
 	@Override
 	public void remove(Player player) throws NoPlayerFoundException {
-		// TODO Auto-generated method stub
+		this.deletePlayer(player);
 		
 	}
 }
