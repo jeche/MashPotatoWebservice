@@ -47,14 +47,14 @@ public class PotatoController {
 	{
 		JsonResponse response = new JsonResponse("success");
 		try {
-		BCryptPasswordEncoder encoded = new BCryptPasswordEncoder();
-		Collection<GrantedAuthorityImpl> auth = new ArrayList<GrantedAuthorityImpl>();
-		auth.add(new GrantedAuthorityImpl("ROLE_USER"));
-		PotatoUser user = new PotatoUser(id, firstName, lastName, username, encoded.encode(hashedPassword), 0, false, 0, 0, 0, 0);// new PotatoUser(id, firstName, lastName, username, encoded.encode(hashedPassword), img);
-		userDAO.createUser(user);
+			BCryptPasswordEncoder encoded = new BCryptPasswordEncoder();
+			Collection<GrantedAuthorityImpl> auth = new ArrayList<GrantedAuthorityImpl>();
+			auth.add(new GrantedAuthorityImpl("ROLE_USER"));
+			PotatoUser user = new PotatoUser(id, firstName, lastName, username, encoded.encode(hashedPassword), 0, false, 0, 0, 0, 0);// new PotatoUser(id, firstName, lastName, username, encoded.encode(hashedPassword), img);
+			userDAO.createUser(user);
 		} catch (Exception e) {
-			System.out.println("WHYYYY343434");
 			response.setStatus("failure);" + e.getMessage().toString());
+			e.printStackTrace();
 		}
 	
 		return response;
