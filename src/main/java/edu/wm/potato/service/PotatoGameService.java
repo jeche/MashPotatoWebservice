@@ -47,6 +47,7 @@ public class PotatoGameService {
 		double[] loc = new double[2];
 		loc[0] = location.getLat();
 		loc[1] = location.getLng();
+		System.out.println("Username: " + name + " attempted to create a game.");
 		Game game = new Game("", lifeSpan, loc, name);
 		gameDAO.addGame(game);
 		return game;
