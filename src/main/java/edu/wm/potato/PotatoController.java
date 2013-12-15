@@ -132,7 +132,7 @@ public class PotatoController {
 	}
 	
 	@RequestMapping(value = "/updatePlayerInfo", method = {RequestMethod.POST})
-	public @ResponseBody JsonResponse updatePotatoInfo(@RequestParam(Constants.potatoID) String id, @RequestParam(Constants.holder) String former,@RequestParam(Constants.lat) double lat, @RequestParam(Constants.lng) double lng,@RequestParam(Constants.score) int score, Principal principal, Model model) {
+	public @ResponseBody JsonResponse updatePotatoInfo(@RequestParam(Constants.potatoID) String id, @RequestParam(Constants.holder) String former,@RequestParam(Constants.lat) double lat, @RequestParam(Constants.lng) double lng, @RequestParam("temp") int temp, @RequestParam(Constants.score) int score, Principal principal, Model model) {
 		// sends Potato info
 		// returns gameStatus
 		JsonResponse response = new JsonResponse(Constants.success);
@@ -155,6 +155,10 @@ public class PotatoController {
 			game = gameDAO.getGameById(player.getGame());
 			glist.add(game);
 			response.setLobby(glist);
+		}else if(former.equals(principal.getName()) && player.isHasString() && !player.getGame().equals("")) {
+			game = gameDAO.getGameById(player.getGame());
+			game.setRoundCount(temp);
+			gameDAO.updateGame(game);
 		}
 		if(id.equals("")) {
 			player.setScore(score);

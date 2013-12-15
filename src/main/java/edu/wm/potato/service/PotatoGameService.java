@@ -29,7 +29,14 @@ public class PotatoGameService {
 	public Game remove(String playerID) {
 		Player player = playerDAO.getPlayerById(playerID);
 		Game game = gameDAO.getGameById(player.getGame());
-		game.getPlayers().remove(player);
+		List<Player> gList = game.getPlayers();
+		for(Player p: gList) {
+			if(p.getId().equals(player.getId())) {
+				gList.remove(p);
+			}
+		}
+//		gList.remove(player);
+		game.setPlayers(gList);
 		player.setGame("");
 		player.setHasString(false);
 		player.setOut(true);
@@ -45,6 +52,7 @@ public class PotatoGameService {
 				}
 				playerDAO.update(p);
 			}
+			game.getPlayers();
 		}
 		gameDAO.updateGame(game);
 		playerDAO.update(player);
