@@ -103,6 +103,7 @@ public class PotatoController {
 			Player player = playerDAO.getPlayerById(playerID);
 			game.getPlayers().add(player);
 			response.setGame(game);
+			
 		} catch (Exception e) {
 			response.setStatus("fail");
 			e.printStackTrace();
@@ -127,13 +128,37 @@ public class PotatoController {
 		return response;
 	}
 	
-	@RequestMapping(value = "/updatePotatoInfo", method = {RequestMethod.POST})
-	public String updatePotatoInfo(@RequestParam(Constants.lifeSpan) long lifeSpan, @RequestParam(Constants.potatoID) String id, Principal principal, Model model) {
+	@RequestMapping(value = "/updatePlayerInfo", method = {RequestMethod.POST})
+	public @ResponseBody JsonResponse updatePotatoInfo(@RequestParam(Constants.potatoID) String id, @RequestParam(Constants.holder) String former,@RequestParam(Constants.lat) double lat, @RequestParam(Constants.lng) double lng,@RequestParam(Constants.score) int score, Principal principal, Model model) {
 		// sends Potato info
 		// returns gameStatus
-		Potato potato = potatoDAO.getPotatoById(id);
+		JsonResponse response = new JsonResponse(Constants.success);
+		Potato potato = null;
+		Game game = null;
+		List<Game> glist = new ArrayList<Game>();
+		
+		Player player = playerDAO.getPlayerById(principal.getName());
+		if(!player.getGame().equals("") && !former.equals(principal.getName())) {
+			Player fPlayer = playerDAO.getPlayerById(former);
+			
+			potato = potatoDAO.getPotatoById(id);
+			List<Potato> plist = new ArrayList<Potato>();
+			plist.add(potato);
+			fPlayer.setHasString(false);
+			fPlayer.setPotatoList(new ArrayList<Potato>());
+			player.setHasString(true);
+			player.setPotatoList(plist);
+			playerDAO.updatePlayer(fPlayer);
+			game = gameDAO.getGameById(player.getGame());
+			glist.add(game);
+			response.setLobby(glist);
+		}
+		if(id.equals("")) {
+			player.setScore(score);
+		}
+		playerDAO.updatePlayer(player);
 //		gameDAO.addGame(game);
-		return "home";
+		return response;
 	}
 	
 	@RequestMapping(value = "/newGame", method = {RequestMethod.POST})
