@@ -113,6 +113,7 @@ public class PotatoController {
 		JsonResponse response = new JsonResponse(Constants.success);
 		try {
 			List<Game> lobby = lobbyService.getGamesNear(lat, lng);
+			System.out.println(lobby);
 			response.setLobby(lobby);
 		} catch (Exception e) {
 			response.setStatus("fail");
