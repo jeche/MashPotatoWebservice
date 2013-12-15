@@ -21,7 +21,7 @@ public class PotatoGameService {
 	@Autowired IPlayerDAO playerDAO;
 	@Autowired IGameDAO gameDAO;
 	@Autowired PotatoLobbyService lobbyService;
-//	@Autowired IPotatoDAO potatoDAO;
+	@Autowired IPotatoDAO potatoDAO;
 
 	public Game remove(String playerID) {
 		Player player = playerDAO.getPlayerById(playerID);
@@ -57,6 +57,7 @@ public class PotatoGameService {
 			d[1] = game.getPlayers().get(0).getLng();
 			Potato pot = new Potato("", 1, new Date().getTime(), game.getPlayers().get(0), game.getMaxRoundTime(), gameID, d);
 			List<Potato> po = new ArrayList<Potato>();
+			potatoDAO.updatePotato(pot);
 			po.add(pot);
 			game.setPotato(po);
 			Player player = game.getPlayers().get(0);
