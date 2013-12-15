@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection="Potato")
 public class Potato {
 	public Potato(String pId, int multiplier, long date, Player holder,
-			long l, String gameID, double[] loc) {
+			long l, String gameID, double[] loc, int temp) {
 		super();
 		this.pId = pId;
 		this.multiplier = multiplier;
@@ -18,12 +18,14 @@ public class Potato {
 		this.lifeSpan = l;
 		this.gameID = gameID;
 		this.loc = loc;
+		this.temp = temp;
 	}
 
 	@Id
 	private String pId;
 	private int multiplier;
 	private long creationDate;
+	private int temp;
 	private Player holder;
 	private long lifeSpan;
 	private String gameID;
@@ -86,6 +88,24 @@ public class Potato {
 	 */
 	public void setLoc(double[] loc) {
 		this.loc = loc;
+	}
+	/**
+	 * @return the temp
+	 */
+	public int getTemp() {
+		return temp;
+	}
+	/**
+	 * @param temp the temp to set
+	 */
+	public void setTemp(int temp) {
+		this.temp = temp;
+	}
+	/**
+	 * @param lifeSpan the lifeSpan to set
+	 */
+	public void setLifeSpan(long lifeSpan) {
+		this.lifeSpan = lifeSpan;
 	}
 
 

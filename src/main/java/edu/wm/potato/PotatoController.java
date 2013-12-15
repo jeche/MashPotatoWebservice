@@ -102,6 +102,9 @@ public class PotatoController {
 			Game game = gameService.remove(playerID);
 			Player player = playerDAO.getPlayerById(playerID);
 			game.getPlayers().add(player);
+			List<Game> gameList = new ArrayList<Game>();
+			gameList.add(game);
+			response.setLobby(gameList);
 			response.setGame(game);
 			
 		} catch (Exception e) {

@@ -6,6 +6,7 @@ public class JsonResponse {
 	
 	String status;
 	Game game;
+	Player me;
 	List<Game> lobby;
 
 	/**

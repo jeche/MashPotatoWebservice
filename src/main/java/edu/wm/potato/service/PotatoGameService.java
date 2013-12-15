@@ -86,7 +86,7 @@ public class PotatoGameService {
 			double [] d = new double[2];
 			d[0] = game.getPlayers().get(0).getLat();
 			d[1] = game.getPlayers().get(0).getLng();
-			Potato pot = new Potato("", 1, new Date().getTime(), game.getPlayers().get(0), game.getMaxRoundTime(), gameID, d);
+			Potato pot = new Potato("", 1, new Date().getTime(), game.getPlayers().get(0), game.getMaxRoundTime(), gameID, d, 0);
 			List<Potato> po = new ArrayList<Potato>();
 			potatoDAO.addPotato(pot);
 			po.add(pot);
