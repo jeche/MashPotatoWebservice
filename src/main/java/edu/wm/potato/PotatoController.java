@@ -124,11 +124,21 @@ public class PotatoController {
 		// adds game to database as ready, but not started
 		// returns gameStatus
 		JsonResponse response = new JsonResponse(Constants.success);
-		GPSLocation location = new GPSLocation();
-		location.setLat(lat);
-		location.setLng(lng);
-		Game game = gameService.addGame(lifeSpan, location, principal.getName());
-		response.setGame(game);
+		try {
+			GPSLocation location = new GPSLocation();
+			location.setLat(lat);
+			location.setLng(lng);
+			Game game = gameService.addGame(lifeSpan, location, principal.getName());
+			List<Game> gamesList = new ArrayList<Game>();
+			gamesList.add(game);
+			response.setLobby(gamesList);
+			response.setGame(game);
+		} catch (Exception e) {
+			response.setStatus("fail");
+			e.printStackTrace();
+		}
+
+		
 		return response;
 	}
 	
@@ -137,18 +147,34 @@ public class PotatoController {
 		// flips state to started initialize potatoes
 		// returns gameStatus
 		JsonResponse response = new JsonResponse(Constants.success);
-		Game game = gameService.startGame(gameID, principal.getName());
-		response.setGame(game);
+		try {
+			Game game = gameService.startGame(gameID, principal.getName());
+			response.setGame(game);
+		} catch (Exception e) {
+			response.setStatus("fail");
+			e.printStackTrace();
+		}
+		
 		return response;
 	}
 	
 	@RequestMapping(value = "/joinGame", method = {RequestMethod.POST})
-	public String joinGame(@RequestParam("gameID") String gameID, Principal principal, Model model) {
+	public @ResponseBody JsonResponse joinGame(@RequestParam("gameID") String gameID, Principal principal, Model model) {
 		// adds player to game
 		// returns gameStatus
-		lobbyService.joinGame(gameID, principal.getName());
+		JsonResponse response = new JsonResponse(Constants.success);
+		try {
+			Game g = lobbyService.joinGame(gameID, principal.getName());
+			List<Game> games = new ArrayList<Game>();
+			games.add(g);
+			response.setLobby(games);
+			response.setGame(g);
+		} catch (Exception e) {
+			response.setStatus("fail");
+			e.printStackTrace();
+		}
 		
-		return "home";
+		return response;
 	}
 	
 	@RequestMapping(value = "/login", method = {RequestMethod.GET})
