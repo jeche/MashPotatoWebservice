@@ -95,9 +95,14 @@ public class PotatoController {
 	public @ResponseBody JsonResponse removePlayer(@RequestParam("playerId") String playerID, Model model) {
 		// sets gameID to invalid value, checks gameID status, if ready to end, ends Game, updates Game as appropriate
 		// returns gameStatus
-		Game game = gameService.remove(playerID);
 		JsonResponse response = new JsonResponse(Constants.success);
-		response.setGame(game);
+		try {
+			Game game = gameService.remove(playerID);
+			response.setGame(game);
+		} catch (Exception e) {
+			response.setStatus("fail");
+			e.printStackTrace();
+		}
 		return response;
 	}
 	
@@ -110,10 +115,9 @@ public class PotatoController {
 			List<Game> lobby = lobbyService.getGamesNear(lat, lng);
 			response.setLobby(lobby);
 		} catch (Exception e) {
-			// TODO: handle exception
+			response.setStatus("fail");
+			e.printStackTrace();
 		}
-		
-		
 		
 		return response;
 	}
