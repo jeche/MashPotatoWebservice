@@ -1,7 +1,10 @@
 package edu.wm.potato.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,6 +15,7 @@ import edu.wm.potato.dao.IPotatoDAO;
 import edu.wm.potato.model.GPSLocation;
 import edu.wm.potato.model.Game;
 import edu.wm.potato.model.Player;
+import edu.wm.potato.model.Potato;
 
 public class PotatoGameService {
 	@Autowired IPlayerDAO playerDAO;
@@ -42,11 +46,28 @@ public class PotatoGameService {
 		if(ownerName.equals(game.getOwner()) && game.getPlayers().size() > 2) {
 			game.setState(Constants.STATE_PLAY);
 			int numPotato = game.getPlayers().size();
-			numPotato = numPotato / 4 + 1;
+//			numPotato = numPotato / 4 + 1;
+			numPotato = 1;
+			game.setCreationDate(new Date().getTime());
+			game.setPotatoCount(numPotato);
 			Collections.shuffle(game.getPlayers());
-			for(int i = 0; i < numPotato; i++) {
-//				game.getPlayers().get(i).setHasPotato(true);
-			}
+			double [] d = new double[2];
+			d[0] = game.getPlayers().get(0).getLat();
+			d[1] = game.getPlayers().get(0).getLng();
+			Potato pot = new Potato("", 1, new Date().getTime(), game.getPlayers().get(0), game.getMaxRoundTime(), gameID, d);
+			List<Potato> po = new ArrayList<Potato>();
+			po.add(pot);
+			game.setPotato(po);
+			Player player = game.getPlayers().get(0);
+			player.setHasString(true);
+			player.setPotatoList(po);
+			gameDAO.updateGame(game);
+			playerDAO.update(player);
+			
+			
+/*			for(int i = 0; i < numPotato; i++) {
+				game.getPlayers().get(i).setHasPotato(true);
+			}*/
 		}
 		return game;
 	}

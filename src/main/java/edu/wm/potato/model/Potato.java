@@ -1,6 +1,6 @@
 package edu.wm.potato.model;
 
-import java.sql.Date;
+
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -8,14 +8,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="Potato")
 public class Potato {
-	public Potato(String pId, int multiplier, Date creationDate, Player holder,
-			int lifeSpan, String gameID, double[] loc) {
+	public Potato(String pId, int multiplier, long date, Player holder,
+			long l, String gameID, double[] loc) {
 		super();
 		this.pId = pId;
 		this.multiplier = multiplier;
-		this.creationDate = creationDate;
+		this.creationDate = date;
 		this.holder = holder;
-		this.lifeSpan = lifeSpan;
+		this.lifeSpan = l;
 		this.gameID = gameID;
 		this.loc = loc;
 	}
@@ -23,17 +23,12 @@ public class Potato {
 	@Id
 	private String pId;
 	private int multiplier;
-	private Date creationDate;
+	private long creationDate;
 	private Player holder;
-	private int lifeSpan;
+	private long lifeSpan;
 	private String gameID;
 	private double[] loc;
 	
-	
-
-	
-	public Potato () {
-	}
 	
 	public int getMultiplier() {
 		return multiplier;
@@ -41,10 +36,10 @@ public class Potato {
 	public void setMultiplier(int multiplier) {
 		this.multiplier = multiplier;
 	}
-	public Date getCreationDate() {
+	public long getCreationDate() {
 		return creationDate;
 	}
-	public void setCreationDate(Date creationDate) {
+	public void setCreationDate(long creationDate) {
 		this.creationDate = creationDate;
 	}
 	public Player getHolder() {
@@ -53,7 +48,7 @@ public class Potato {
 	public void setHolder(Player holder) {
 		this.holder = holder;
 	}
-	public int getLifeSpan() {
+	public long getLifeSpan() {
 		return lifeSpan;
 	}
 	public void setLifeSpan(int lifeSpan) {
