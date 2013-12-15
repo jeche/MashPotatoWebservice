@@ -33,6 +33,7 @@ public class PotatoGameService {
 		for(Player p: gList) {
 			if(p.getId().equals(player.getId())) {
 				gList.remove(p);
+				System.out.println("Removed " + p.getId());
 			}
 		}
 //		gList.remove(player);
