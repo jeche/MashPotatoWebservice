@@ -3,6 +3,7 @@ package edu.wm.potato;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import edu.wm.potato.model.GPSLocation;
 import edu.wm.potato.model.Game;
 import edu.wm.potato.model.JsonResponse;
 import edu.wm.potato.model.Player;
+import edu.wm.potato.model.Potato;
 import edu.wm.potato.model.PotatoUser;
 import edu.wm.potato.service.PotatoGameService;
 import edu.wm.potato.service.PotatoLobbyService;
@@ -157,8 +159,17 @@ public class PotatoController {
 		if(!player.getGame().equals("")) {
 			Game g = gameDAO.getGameById(player.getGame());
 			gamesList.add(g);
-			response.setLobby(gamesList);
+			
+		}else {
+			List<Player> players = new ArrayList<Player>();
+			players.add(player);
+			double [] d = new double[2];
+			d[0] = 0;
+			d[1] = 0;
+			Game g= new Game("", "", new Date().getTime(), 0, 0, 0, d, 0, players, new ArrayList<Potato>());
+			gamesList.add(g);
 		}
+		response.setLobby(gamesList);
 		return response;
 	}
 	
