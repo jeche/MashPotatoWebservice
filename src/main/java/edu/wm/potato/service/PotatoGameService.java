@@ -56,8 +56,9 @@ public class PotatoGameService {
 		loc[1] = location.getLng();
 		System.out.println("Username: " + name + " attempted to create a game.");
 		Game game = new Game("", lifeSpan, loc, name);
-		lobbyService.joinGame(game.getId(), name);
+		
 		gameDAO.addGame(game);
+		lobbyService.joinGame(game.getId(), name);
 		return game;
 		
 	}
