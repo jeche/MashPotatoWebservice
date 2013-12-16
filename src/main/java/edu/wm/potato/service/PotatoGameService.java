@@ -30,7 +30,8 @@ public class PotatoGameService {
 		Player player = playerDAO.getPlayerById(playerID);
 		Game game = gameDAO.getGameById(player.getGame());
 		List<Player> gList = game.getPlayers();
-		for(Player p: gList) {
+		for(int i = 0; i < gList.size(); i++) {
+			Player p = gList.get(i);
 			if(p.getId().equals(player.getId())) {
 				gList.remove(p);
 				System.out.println("Removed " + p.getId());
