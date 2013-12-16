@@ -9,13 +9,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection="Potato")
 public class Potato {
 	public Potato(String pId, int multiplier, long creationdate, String holder,
-			long l, String gameID, double[] loc, int temp) {
+			long lifeSpan, String gameID, double[] loc, int temp) {
 		super();
 		this.pId = pId;
 		this.multiplier = multiplier;
 		this.creationdate = creationdate;
 		this.holder = holder;
-		this.lifeSpan = l;
+		this.lifeSpan = lifeSpan;
 		this.gameID = gameID;
 		this.loc = loc;
 		this.temp = temp;
