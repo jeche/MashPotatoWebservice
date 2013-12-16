@@ -141,16 +141,18 @@ public class PotatoController {
 		List<Game> glist = new ArrayList<Game>();
 		
 		Player player = playerDAO.getPlayerById(principal.getName());
-		if(!player.getGame().equals("") && !former.equals(principal.getName())) {
+		if(!player.getGame().equals("") && !former.equals(principal.getName())&&!id.equals("")) {
 			Player fPlayer = playerDAO.getPlayerById(former);
 			
 			potato = potatoDAO.getPotatoById(id);
+			potato.setHolder(player.getId());
 			List<Potato> plist = new ArrayList<Potato>();
 			plist.add(potato);
 			fPlayer.setHasString(false);
 			fPlayer.setPotatoList(new ArrayList<Potato>());
 			player.setHasString(true);
 			player.setPotatoList(plist);
+			potatoDAO.updatePotato(potato);
 			playerDAO.updatePlayer(fPlayer);
 			game = gameDAO.getGameById(player.getGame());
 			glist.add(game);

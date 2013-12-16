@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="Potato")
 public class Potato {
-	public Potato(String pId, int multiplier, long date, Player holder,
+	public Potato(String pId, int multiplier, long date, String holder,
 			long l, String gameID, double[] loc, int temp) {
 		super();
 		this.pId = pId;
@@ -26,7 +26,7 @@ public class Potato {
 	private int multiplier;
 	private long creationDate;
 	private int temp;
-	private Player holder;
+	private String holder;
 	private long lifeSpan;
 	private String gameID;
 	private double[] loc;
@@ -44,10 +44,10 @@ public class Potato {
 	public void setCreationDate(long creationDate) {
 		this.creationDate = creationDate;
 	}
-	public Player getHolder() {
+	public String getHolder() {
 		return holder;
 	}
-	public void setHolder(Player holder) {
+	public void setHolder(String holder) {
 		this.holder = holder;
 	}
 	public long getLifeSpan() {
