@@ -50,6 +50,8 @@ public class PotatoGameService {
 					user.setScore(user.getScore() + p.getScore());
 					p.setScore(0);
 					userDAO.update(user);
+				}else {
+					p.setScore(0);
 				}
 				playerDAO.update(p);
 			}

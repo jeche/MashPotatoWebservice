@@ -163,9 +163,9 @@ public class PotatoController {
 			game.setRoundCount(temp);
 			gameDAO.updateGame(game);
 		}
-		if(id.equals("")) {
-			player.setScore(score);
-		}
+//		if(id.equals("")) {
+		player.setScore(score);
+//		}
 		playerDAO.updatePlayer(player);
 //		gameDAO.addGame(game);
 		return response;
