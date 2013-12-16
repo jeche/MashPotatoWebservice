@@ -99,6 +99,10 @@ public class MongoGameDAO implements IGameDAO {
 		finally {
 			cursor.close();
 		}*/
+		for(Game g: games) {
+			if(g.getState() != 0)
+				games.remove(g);
+		}
 		return games;
 		
 	}
