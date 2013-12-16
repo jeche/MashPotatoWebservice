@@ -201,6 +201,9 @@ public class PotatoController {
 		JsonResponse response = new JsonResponse(Constants.success);
 		try {
 			Game game = gameService.startGame(gameID, principal.getName());
+			List<Game> gameList = new ArrayList<Game>();
+			gameList.add(game);
+			response.setLobby(gameList);
 			response.setGame(game);
 		} catch (Exception e) {
 			response.setStatus("fail");
