@@ -17,17 +17,25 @@
 	<context:component-scan base-package="edu.wm.potato" />
 	    <!-- create db object by calling getDB on mongo bean -->
 <context:property-placeholder/>
-<mongo:db-factory id="mongoDbFactory"
-    			 host="widmore.mongohq.com"
-    			 port="10010"
-    			 dbname="potato"
-    			 username="potato"
-    			 password="potato"/>
 
-<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-    <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
-</bean>  
+       <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongo" ref="mongo"/>
+        <constructor-arg name="databaseName" value="potato"/>
+        <constructor-arg name="userCredentials" ref="mongoCredentials"/>
+    </bean>
 
+    <bean id="mongoCredentials" class="org.springframework.data.authentication.UserCredentials">
+        <constructor-arg name="username" value="potato" />
+        <constructor-arg name="password" value="potato" />
+    </bean>
+
+    <bean class="com.mongodb.MongoURI" id="mongoURI">
+        <constructor-arg value="mongodb://potato:potato@widmore.mongohq.com:10010/potato" />
+    </bean>
+
+    <bean class="com.mongodb.Mongo" id="mongo">
+        <constructor-arg ref="mongoURI" />
+    </bean>
 
         <bean id="playerDAO" class="edu.wm.potato.dao.MongoPlayerDAO"></bean>
         <bean id="potatoDAO" class="edu.wm.potato.dao.MongoPotatoDAO"></bean>
