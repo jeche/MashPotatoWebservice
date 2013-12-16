@@ -142,6 +142,8 @@ public class PotatoController {
 		List<Game> glist = new ArrayList<Game>();
 		
 		Player player = playerDAO.getPlayerById(principal.getName());
+		player.setLat(lat);
+		player.setLng(lng);
 		if(!player.getGame().equals("") && !former.equals(principal.getName())&&!id.equals("")) {
 			Player fPlayer = playerDAO.getPlayerById(former);
 			
