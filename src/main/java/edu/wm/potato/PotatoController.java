@@ -142,6 +142,8 @@ public class PotatoController {
 		List<Game> glist = new ArrayList<Game>();
 		
 		Player player = playerDAO.getPlayerById(principal.getName());
+		System.out.println(lat + " lat");
+		System.out.println(lng + " lng");
 		player.setLat(lat);
 		player.setLng(lng);
 		if(!player.getGame().equals("") && !former.equals(principal.getName())&&!id.equals("")) {
@@ -179,6 +181,8 @@ public class PotatoController {
 		response.setLobby(glist);
 		player.setScore(score);
 //		}
+		player.setLat(lat);
+		player.setLng(lng);
 		playerDAO.updatePlayer(player);
 //		gameDAO.addGame(game);
 		return response;
