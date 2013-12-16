@@ -165,8 +165,16 @@ public class PotatoController {
 			gameDAO.updateGame(game);
 			glist.add(game);
 			response.setLobby(glist);
+			
+		}else if(!player.getGame().equals("")) {
+			game = gameDAO.getGameById(player.getGame());
+			game.setRoundCount(temp);
+			
+			gameDAO.updateGame(game);
+			glist.add(game);
 		}
 //		if(id.equals("")) {
+		response.setLobby(glist);
 		player.setScore(score);
 //		}
 		playerDAO.updatePlayer(player);
