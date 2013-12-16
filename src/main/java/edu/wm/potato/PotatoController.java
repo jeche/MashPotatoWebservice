@@ -234,12 +234,15 @@ public class PotatoController {
 		JsonResponse response = new JsonResponse(Constants.success);
 		try {
 			Player player = playerDAO.getPlayerById(principal.getName());
+			System.out.println("Login: grabbed player from DAO " + principal.getName());
 			List<Game> gamesList= new ArrayList<Game>(); 
 			if(!player.getGame().equals("")) {
 				Game g = gameDAO.getGameById(player.getGame());
+				System.out.println("Login: grabbed game " + g.getId());
 				gamesList.add(g);
 				
 			}else {
+				System.out.println("Login: quickie ");
 				List<Player> players = new ArrayList<Player>();
 				players.add(player);
 				double [] d = new double[2];
@@ -254,7 +257,7 @@ public class PotatoController {
 			e.printStackTrace();
 			// TODO: handle exception
 		}
-
+		System.out.println("Login: returned response ");
 		return response;
 	}
 	
