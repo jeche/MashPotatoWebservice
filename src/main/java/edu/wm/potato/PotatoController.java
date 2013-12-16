@@ -97,6 +97,7 @@ public class PotatoController {
 	public @ResponseBody JsonResponse removePlayer(@RequestParam("playerId") String playerID, Model model) {
 		// sets gameID to invalid value, checks gameID status, if ready to end, ends Game, updates Game as appropriate
 		// returns gameStatus
+		System.out.println("whoop di doo");
 		JsonResponse response = new JsonResponse(Constants.success);
 		try {
 			Game game = gameService.remove(playerID);
