@@ -40,8 +40,7 @@ public class PotatoGameService {
 //		gList.remove(player);
 		game.setPlayers(gList);
 		player.setGame("");
-		player.setHasString(false);
-		player.setOut(true);
+		
 		if(player.isHasString()) {
 			for(Player p : game.getPlayers()) {
 				p.setScore(p.getScore() + 1 );
@@ -56,7 +55,20 @@ public class PotatoGameService {
 				}
 				playerDAO.update(p);
 			}
-			game.getPlayers();
+			Collections.shuffle(game.getPlayers());
+			Player newGuy = game.getPlayers().get(0);
+			double [] loc = new double[2];
+			loc[0] = newGuy.getLat();
+			loc[1] = newGuy.getLng();
+			Potato potato = new Potato("", 1, new Date().getTime(), newGuy.getId(), game.getMaxRoundTime(), game.getId(), loc, 0);
+			potatoDAO.addPotato(potato);
+			List<Potato> potatoList = new ArrayList<Potato>();
+			potatoList.add(potato);
+			newGuy.setPotatoList(potatoList);
+			newGuy.setHasString(true);
+			playerDAO.update(newGuy);
+			player.setHasString(false);
+			player.setOut(true);
 		}
 		gameDAO.updateGame(game);
 		playerDAO.update(player);
