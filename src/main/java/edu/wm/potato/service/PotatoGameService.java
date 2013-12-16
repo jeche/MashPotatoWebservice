@@ -84,7 +84,7 @@ public class PotatoGameService {
 	public Game startGame(String gameID, String ownerName) {
 		Game game = gameDAO.getGameById(gameID);
 		System.out.println("Owner is: " + ownerName + "and should be: " + game.getOwner());
-		if(ownerName.equals(game.getOwner()) && game.getPlayers().size() > 2) {
+//		if(ownerName.equals(game.getOwner()) && game.getPlayers().size() > 2) {
 			game.setState(Constants.STATE_PLAY);
 			int numPotato = game.getPlayers().size();
 //			numPotato = numPotato / 4 + 1;
@@ -109,7 +109,7 @@ public class PotatoGameService {
 /*			for(int i = 0; i < numPotato; i++) {
 				game.getPlayers().get(i).setHasPotato(true);
 			}*/
-		}
+//		}
 		return game;
 	}
 
