@@ -13,7 +13,7 @@ public class Potato {
 		super();
 		this.pId = pId;
 		this.multiplier = multiplier;
-		this.creationDate = date;
+		this.creationdate = date;
 		this.holder = holder;
 		this.lifeSpan = l;
 		this.gameID = gameID;
@@ -24,7 +24,7 @@ public class Potato {
 	@Id
 	private String pId;
 	private int multiplier;
-	private long creationDate;
+	private long creationdate;
 	private int temp;
 	private String holder;
 	private long lifeSpan;
@@ -39,10 +39,10 @@ public class Potato {
 		this.multiplier = multiplier;
 	}
 	public long getCreationDate() {
-		return creationDate;
+		return creationdate;
 	}
 	public void setCreationDate(long creationDate) {
-		this.creationDate = creationDate;
+		this.creationdate = creationDate;
 	}
 	public String getHolder() {
 		return holder;
