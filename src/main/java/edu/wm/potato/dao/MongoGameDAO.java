@@ -32,6 +32,7 @@ import com.mongodb.MongoClient;
 import edu.wm.potato.Constants;
 import edu.wm.potato.model.GPSLocation;
 import edu.wm.potato.model.Game;
+import edu.wm.potato.model.Player;
 
 @Repository
 public class MongoGameDAO implements IGameDAO {
@@ -60,9 +61,9 @@ public class MongoGameDAO implements IGameDAO {
 
 	@Override
 	public Game getGameById(String id) {
-		List<Game>games =  mongoTemplate.findAll(Game.class, COLLECTION_NAME);
-		System.out.println("LIST OF GAMES: " + games);
-        return games.get(0);
+		Game result = mongoTemplate.findById(id, Game.class);
+		
+        return result;
 	}
 
 	@Override
