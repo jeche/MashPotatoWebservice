@@ -161,7 +161,10 @@ public class PotatoController {
 		}else if(former.equals(principal.getName()) && player.isHasString() && !player.getGame().equals("")) {
 			game = gameDAO.getGameById(player.getGame());
 			game.setRoundCount(temp);
+			
 			gameDAO.updateGame(game);
+			glist.add(game);
+			response.setLobby(glist);
 		}
 //		if(id.equals("")) {
 		player.setScore(score);
